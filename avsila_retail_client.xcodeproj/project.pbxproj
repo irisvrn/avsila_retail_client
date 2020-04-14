@@ -1,0 +1,379 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4414B5DA2415864A0044AD0D /* fLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B5D92415864A0044AD0D /* fLoginVC.swift */; };
+		4414B5FE241D7DD70044AD0D /* logInSMSTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */; };
+		448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BF42F242F5C9E00993748 /* searchTableViewCell.swift */; };
+		44B074A123F6C4B6001F2C16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074A023F6C4B6001F2C16 /* AppDelegate.swift */; };
+		44B074A523F6C4B6001F2C16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074A423F6C4B6001F2C16 /* ViewController.swift */; };
+		44B074A823F6C4B6001F2C16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B074A623F6C4B6001F2C16 /* Main.storyboard */; };
+		44B074AA23F6C4BC001F2C16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44B074A923F6C4BC001F2C16 /* Assets.xcassets */; };
+		44B074AD23F6C4BC001F2C16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B074AB23F6C4BC001F2C16 /* LaunchScreen.storyboard */; };
+		44B074B523F803EB001F2C16 /* firstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B423F803EB001F2C16 /* firstScreen.swift */; };
+		44B074B723F80545001F2C16 /* personalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B623F80545001F2C16 /* personalTVC.swift */; };
+		44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B823F80B34001F2C16 /* garageStackView.swift */; };
+		44EE389423F978F5004567D0 /* logoavsila.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44EE389323F978F5004567D0 /* logoavsila.jpg */; };
+		44EE389623F97A6F004567D0 /* shopsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE389523F97A6F004567D0 /* shopsVC.swift */; };
+		44EE389823F980D8004567D0 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE389723F980D8004567D0 /* model.swift */; };
+		44EE389A2401B335004567D0 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE38992401B335004567D0 /* SearchVC.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4414B5D92415864A0044AD0D /* fLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fLoginVC.swift; sourceTree = "<group>"; };
+		4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logInSMSTVC.swift; sourceTree = "<group>"; };
+		448BF42F242F5C9E00993748 /* searchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchTableViewCell.swift; sourceTree = "<group>"; };
+		44B0749D23F6C4B6001F2C16 /* avsila лояльность.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "avsila лояльность.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		44B074A023F6C4B6001F2C16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		44B074A423F6C4B6001F2C16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		44B074A723F6C4B6001F2C16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		44B074A923F6C4BC001F2C16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		44B074AC23F6C4BC001F2C16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		44B074AE23F6C4BC001F2C16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44B074B423F803EB001F2C16 /* firstScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstScreen.swift; sourceTree = "<group>"; };
+		44B074B623F80545001F2C16 /* personalTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalTVC.swift; sourceTree = "<group>"; };
+		44B074B823F80B34001F2C16 /* garageStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = garageStackView.swift; sourceTree = "<group>"; };
+		44EE389323F978F5004567D0 /* logoavsila.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoavsila.jpg; sourceTree = "<group>"; };
+		44EE389523F97A6F004567D0 /* shopsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopsVC.swift; sourceTree = "<group>"; };
+		44EE389723F980D8004567D0 /* model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		44EE38992401B335004567D0 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		44B0749A23F6C4B6001F2C16 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		44B0749423F6C4B6001F2C16 = {
+			isa = PBXGroup;
+			children = (
+				44B0749F23F6C4B6001F2C16 /* avsila_retail_client */,
+				44B0749E23F6C4B6001F2C16 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		44B0749E23F6C4B6001F2C16 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44B0749D23F6C4B6001F2C16 /* avsila лояльность.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		44B0749F23F6C4B6001F2C16 /* avsila_retail_client */ = {
+			isa = PBXGroup;
+			children = (
+				44EE389723F980D8004567D0 /* model.swift */,
+				44B074A023F6C4B6001F2C16 /* AppDelegate.swift */,
+				44B074A423F6C4B6001F2C16 /* ViewController.swift */,
+				44B074B823F80B34001F2C16 /* garageStackView.swift */,
+				44B074B623F80545001F2C16 /* personalTVC.swift */,
+				44EE38992401B335004567D0 /* SearchVC.swift */,
+				448BF42F242F5C9E00993748 /* searchTableViewCell.swift */,
+				44B074B423F803EB001F2C16 /* firstScreen.swift */,
+				4414B5D92415864A0044AD0D /* fLoginVC.swift */,
+				4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */,
+				44EE389523F97A6F004567D0 /* shopsVC.swift */,
+				44B074A623F6C4B6001F2C16 /* Main.storyboard */,
+				44B074A923F6C4BC001F2C16 /* Assets.xcassets */,
+				44EE389323F978F5004567D0 /* logoavsila.jpg */,
+				44B074AB23F6C4BC001F2C16 /* LaunchScreen.storyboard */,
+				44B074AE23F6C4BC001F2C16 /* Info.plist */,
+			);
+			path = avsila_retail_client;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		44B0749C23F6C4B6001F2C16 /* avsila_retail_client */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44B074B123F6C4BC001F2C16 /* Build configuration list for PBXNativeTarget "avsila_retail_client" */;
+			buildPhases = (
+				44B0749923F6C4B6001F2C16 /* Sources */,
+				44B0749A23F6C4B6001F2C16 /* Frameworks */,
+				44B0749B23F6C4B6001F2C16 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = avsila_retail_client;
+			productName = avsila_retail_client;
+			productReference = 44B0749D23F6C4B6001F2C16 /* avsila лояльность.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		44B0749523F6C4B6001F2C16 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1110;
+				LastUpgradeCheck = 1110;
+				ORGANIZATIONNAME = "Eugene Izotov";
+				TargetAttributes = {
+					44B0749C23F6C4B6001F2C16 = {
+						CreatedOnToolsVersion = 11.1;
+					};
+				};
+			};
+			buildConfigurationList = 44B0749823F6C4B6001F2C16 /* Build configuration list for PBXProject "avsila_retail_client" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 44B0749423F6C4B6001F2C16;
+			productRefGroup = 44B0749E23F6C4B6001F2C16 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				44B0749C23F6C4B6001F2C16 /* avsila_retail_client */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		44B0749B23F6C4B6001F2C16 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44B074AD23F6C4BC001F2C16 /* LaunchScreen.storyboard in Resources */,
+				44B074AA23F6C4BC001F2C16 /* Assets.xcassets in Resources */,
+				44EE389423F978F5004567D0 /* logoavsila.jpg in Resources */,
+				44B074A823F6C4B6001F2C16 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		44B0749923F6C4B6001F2C16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44B074B523F803EB001F2C16 /* firstScreen.swift in Sources */,
+				44B074A523F6C4B6001F2C16 /* ViewController.swift in Sources */,
+				44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */,
+				44EE389A2401B335004567D0 /* SearchVC.swift in Sources */,
+				44EE389623F97A6F004567D0 /* shopsVC.swift in Sources */,
+				4414B5DA2415864A0044AD0D /* fLoginVC.swift in Sources */,
+				448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */,
+				44B074A123F6C4B6001F2C16 /* AppDelegate.swift in Sources */,
+				44B074B723F80545001F2C16 /* personalTVC.swift in Sources */,
+				44EE389823F980D8004567D0 /* model.swift in Sources */,
+				4414B5FE241D7DD70044AD0D /* logInSMSTVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		44B074A623F6C4B6001F2C16 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44B074A723F6C4B6001F2C16 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		44B074AB23F6C4BC001F2C16 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44B074AC23F6C4BC001F2C16 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		44B074AF23F6C4BC001F2C16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		44B074B023F6C4BC001F2C16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		44B074B223F6C4BC001F2C16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UJL5FS9HW5;
+				INFOPLIST_FILE = avsila_retail_client/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "eizotov.avsila-retail-client";
+				PRODUCT_NAME = "avsila лояльность";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		44B074B323F6C4BC001F2C16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UJL5FS9HW5;
+				INFOPLIST_FILE = avsila_retail_client/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "eizotov.avsila-retail-client";
+				PRODUCT_NAME = "avsila лояльность";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		44B0749823F6C4B6001F2C16 /* Build configuration list for PBXProject "avsila_retail_client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44B074AF23F6C4BC001F2C16 /* Debug */,
+				44B074B023F6C4BC001F2C16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44B074B123F6C4BC001F2C16 /* Build configuration list for PBXNativeTarget "avsila_retail_client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44B074B223F6C4BC001F2C16 /* Debug */,
+				44B074B323F6C4BC001F2C16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 44B0749523F6C4B6001F2C16 /* Project object */;
+}
