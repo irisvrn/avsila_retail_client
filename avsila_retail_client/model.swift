@@ -199,6 +199,7 @@ static let shared = Model()
         
        // print(resultImage)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "imageRefresh"), object: self)
+        print("Images downloaded")
     
         
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4414B5DA2415864A0044AD0D /* fLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B5D92415864A0044AD0D /* fLoginVC.swift */; };
 		4414B5FE241D7DD70044AD0D /* logInSMSTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */; };
+		4439563624C631900005B542 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4439563524C631900005B542 /* CollectionViewCell.swift */; };
 		448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BF42F242F5C9E00993748 /* searchTableViewCell.swift */; };
 		44B074A123F6C4B6001F2C16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074A023F6C4B6001F2C16 /* AppDelegate.swift */; };
 		44B074A523F6C4B6001F2C16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074A423F6C4B6001F2C16 /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		4414B5D92415864A0044AD0D /* fLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fLoginVC.swift; sourceTree = "<group>"; };
 		4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logInSMSTVC.swift; sourceTree = "<group>"; };
+		4439563524C631900005B542 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		448BF42F242F5C9E00993748 /* searchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchTableViewCell.swift; sourceTree = "<group>"; };
 		44B0749D23F6C4B6001F2C16 /* avsila лояльность.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "avsila лояльность.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B074A023F6C4B6001F2C16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				44EE38992401B335004567D0 /* SearchVC.swift */,
 				448BF42F242F5C9E00993748 /* searchTableViewCell.swift */,
 				44B074B423F803EB001F2C16 /* firstScreen.swift */,
+				4439563524C631900005B542 /* CollectionViewCell.swift */,
 				4414B5D92415864A0044AD0D /* fLoginVC.swift */,
 				4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */,
 				44EE389523F97A6F004567D0 /* shopsVC.swift */,
@@ -168,6 +171,7 @@
 			files = (
 				44B074B523F803EB001F2C16 /* firstScreen.swift in Sources */,
 				44B074A523F6C4B6001F2C16 /* ViewController.swift in Sources */,
+				4439563624C631900005B542 /* CollectionViewCell.swift in Sources */,
 				44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */,
 				44EE389A2401B335004567D0 /* SearchVC.swift in Sources */,
 				44EE389623F97A6F004567D0 /* shopsVC.swift in Sources */,

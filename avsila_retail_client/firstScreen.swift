@@ -55,11 +55,11 @@ class firstScreen: UITableViewController {
     func readCollection() {
 
         collectionViewRect = CGRect(x: 0, y: 50, width: readTableViewCell.frame.width, height: 200)
-        flowLayout.itemSize = CGSize(width: 200, height: 180)
+        flowLayout.itemSize = CGSize(width: 160, height: 150)
         flowLayout.minimumInteritemSpacing = CGFloat(10)
         flowLayout.scrollDirection = .horizontal
         
-        readCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "readcell")
+        readCollectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "readcell")
 
         readCollectionView.backgroundColor = readTableViewCell.backgroundColor
         readCollectionView.showsHorizontalScrollIndicator = false
@@ -68,16 +68,10 @@ class firstScreen: UITableViewController {
         readCollectionView.delegate = self
         readTableViewCell.addSubview(readCollectionView)
         
-        testButton.frame = CGRect(x: 20, y: 300, width: 100, height: 40)
-        testButton.layer.cornerRadius = 5
-        testButton.layer.borderWidth = 2
-        testButton.layer.borderColor = CGColor(srgbRed: 50/255, green: 50/255, blue: 50/250, alpha: 1)
-        testButton.setTitle("press", for: .normal)
-        testButton.setTitleColor(.darkGray, for: .normal)
-        testButton.addTarget(self, action: #selector(testbuttonaction), for: .touchDown)
-        readTableViewCell.addSubview(testButton)
-        
-    
+   
+        testimageview.frame = CGRect(x: 130, y: 300, width: 120, height: 80)
+        testimageview.backgroundColor = .green
+        readTableViewCell.addSubview(testimageview)
         
         
     }
@@ -100,6 +94,7 @@ class firstScreen: UITableViewController {
     }
     
     func garageSlider() {
+              //хорошо подходит для банеров. надо научиться перещелкивать
         
                let grantaImage = UIImage(named: "granta")
                let vestaImage = UIImage(named: "vesta")
@@ -339,57 +334,34 @@ extension firstScreen:UICollectionViewDelegate,UICollectionViewDataSource {
     }
     
     func collectionView(_ readCollectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let readcell = readCollectionView.dequeueReusableCell(withReuseIdentifier: "readcell", for: indexPath) as UICollectionViewCell
-        let readCellLabel = UILabel()
-        let cellView = UIView()
-        let readImageView = UIImageView()
+        let readcell = readCollectionView.dequeueReusableCell(withReuseIdentifier: "readcell", for: indexPath) as! CollectionViewCell
+        
         var albumRow : (Model.albums)
         
-        cellView.frame = CGRect(x: 0, y: 0, width: 190, height: 160)
         albumRow = Model.shared.resultAlbums[indexPath.row]
+        readcell.cellLbl.text = albumRow.collectionName
 
-        readCellLabel.frame = CGRect(x: 10, y: 90, width: 180, height: 120)
-       // readCellLabel.text = readArray[indexPath.row]
-        
-        readCellLabel.text = albumRow.collectionName
-        readCellLabel.numberOfLines = 7
-        readCellLabel.textColor = .darkGray
-        cellView.addSubview(readCellLabel)
-        
-      //  print(albumRow.artworkUrl100)
-        
-
-    
-        readImageView.frame = CGRect(x: 45, y: 5, width: 100, height: 100)
-        cellView.addSubview(readImageView)
         if Model.shared.loginValue == true
         {
-//            readImageView.image = Model.shared.resultImage[indexPath.row]
+          //  readcell.cellImg.image = Model.shared.resultImage[indexPath.row]
         }
     
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "imageRefresh"), object: nil, queue: nil) { (notification) in
-             
-            //MARK: обновляем таблицу в основном потоке
-            DispatchQueue.main.async {
-                  readCollectionView.reloadData()
-                 readImageView.image = Model.shared.resultImage[indexPath.row]
-               
-            }
+        if Model.shared.resultImage.count>0 {
+            readcell.cellImg.image = Model.shared.resultImage[indexPath.row]
         }
         
-        
-       
-
-       
-        
-        readcell.addSubview(cellView)
-        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "imageRefresh"), object: nil, queue: nil) { (notification) in
+            //MARK: обновляем таблицу в основном потоке
+            DispatchQueue.main.async {
+                 readCollectionView.reloadData()
+            }
+        }
         return readcell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("user pressed \(indexPath.row) \(Model.shared.resultAlbums[indexPath.row].collectionName)")
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "imageRefresh"), object: self)
+        testimageview.image = Model.shared.resultImage[indexPath.row]
+        // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "imageRefresh"), object: self)
     }
 }

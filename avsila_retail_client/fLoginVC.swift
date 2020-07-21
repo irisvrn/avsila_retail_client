@@ -11,8 +11,32 @@ import Foundation
 
 class fLoginVC: UITableViewController {
 
+    var urlChangePass = "https://avsila.ru/auth/?forgot_password=yes" //страница смены пароля
+    
+    @IBAction func changePassword(_ sender: Any) {
+       
+        var alert = UIAlertController(title: "Восстановление пароля", message: "Восстановить пароль можно на сайте avsila.ru", preferredStyle: .alert)
+        var alertAction1 = UIAlertAction(title: "Перейти на сайт", style: .default) { (UIAlertAction) in
+           // print("Перейти на сайт")
+            self.openUrlSafari()
+        }
+        var alertAction2 = UIAlertAction(title: "Не сейчас", style: .cancel, handler: nil)
+        
+        alert.addAction(alertAction1)
+        alert.addAction(alertAction2)
+        
+         present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func openUrlSafari() {
+        if let url = NSURL(string: urlChangePass) {
+            UIApplication.shared.openURL(url as URL)
+        }
+    }
+    
     @IBAction func closeBtn(_ sender: Any) {
-      //  self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBOutlet weak var logInOutlet: UIButton!
