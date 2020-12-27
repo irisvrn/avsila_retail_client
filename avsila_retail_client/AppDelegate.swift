@@ -19,14 +19,18 @@ var window: UIWindow?
         //MARK: не работает если есть SceneDelegate - и ссылка в Plist
         // подробнее https://stackoverflow.com/questions/58084127/ios-13-swift-set-application-root-view-controller-programmatically-does-not
         
+      //  print(Model.shared.getSettings())
+        
+        Model.shared.loginValue = Model.shared.getSettings()
+        
         if Model.shared.loginValue == false {
-            
-            let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            print("LoggedOut")
+            /*let mainStoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             
             let homePage = mainStoryboard.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
-            self.window?.rootViewController = homePage
+            self.window?.rootViewController = homePage*/
     
-        }
+        } else {  print("LoggedIn")}
         
         return true
     }

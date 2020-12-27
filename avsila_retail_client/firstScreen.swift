@@ -33,10 +33,33 @@ var readImageArray = ["read1", "read2", "read3"]
 
 class firstScreen: UITableViewController {
 
+    @IBAction func toSTOpage(_ sender: Any) {
+        goToSTOPage()
+    }
+    
     @IBOutlet weak var garageTableViewCell: UITableViewCell!
     @IBOutlet weak var discountCardImageView: UIImageView!
     @IBOutlet weak var offerTableViewCell: UITableViewCell!
     @IBOutlet weak var readTableViewCell: UITableViewCell!
+    @IBOutlet weak var labelDiscountCarTop: UILabel!
+    
+    
+    //MARK: adding cart controller
+    @IBAction func addCartButton(_ sender: Any) {
+       let registerViewController = self.storyboard?.instantiateViewController(identifier: "AddCartViewController") as! AddCartViewController
+         navigationController?.pushViewController(registerViewController, animated: true)
+//
+        
+        //  self.present(registerViewController, animated: true, completion: nil)
+          
+        /*
+        let vc = AddCartViewController()
+               vc.title = "Добавление дисконтной карты"
+               let navVC = UINavigationController(rootViewController: vc)
+               navVC.modalPresentationStyle = .fullScreen
+               present(navVC, animated: true)*/
+    }
+    
     
     @IBAction func goToPersonalPageButton(_ sender: Any) {
         //MARK: открыть другой контроллер
@@ -47,6 +70,28 @@ class firstScreen: UITableViewController {
             let registerViewController = self.storyboard?.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
             self.present(registerViewController, animated: true, completion: nil)
         }
+        
+        print("ok")
+    }
+    
+    func goToSTOPage() {
+        //MARK: открыть другой контроллер
+        if Model.shared.loginValue == true {
+            let registerViewController = self.storyboard?.instantiateViewController(identifier: "stovc") as! STOVC
+            self.present(registerViewController, animated: true, completion: nil)
+            
+            
+           // let stoPage = self.storyboard?.instantiateViewController(identifier: "stovc") as! STOVC
+           // let appDelegate = UIApplication.shared.delegate
+          //  appDelegate?.window??.rootViewController = stoPage
+            
+            
+        } else {
+            let registerViewController = self.storyboard?.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
+            self.present(registerViewController, animated: true, completion: nil)
+        }
+        
+        
         
         print("ok")
     }
@@ -214,6 +259,12 @@ class firstScreen: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: загружаем JSON
+        
+        if Model.shared.loginValue == false {
+            labelDiscountCarTop.text = "Дисконтная карта (logged Out)"
+        } else {
+            labelDiscountCarTop.text = "Дисконтная карта (logged In)"
+        }
         Model.shared.loadJSONFileAlbums()
         
         discountCardImageView.layer.cornerRadius = 15

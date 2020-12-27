@@ -15,9 +15,18 @@ class personalTVC: UITableViewController {
     @IBAction func logOutBtn(_ sender: Any) {
         //MARK: запустить controller с входом
         Model.shared.loginValue = false
+        Model.shared.setSettingsLoginStatus(loginValue:false)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+        
+        /*
         let loginPage = self.storyboard?.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = loginPage
+        
+        Model.shared.setSettingsLoginStatus(loginValue:false)*/
     }
     
     
@@ -33,22 +42,35 @@ class personalTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        saveBtnOutlet.layer.cornerRadius = 15
-        //saveBtnOutlet.clipsToBounds = true
+        }
         
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+          saveBtnOutlet.layer.cornerRadius = 15
+         //  saveBtnOutlet.clipsToBounds = true
+           
+           saveBtnOutlet.layer.shadowRadius = 5
+           saveBtnOutlet.layer.shadowOpacity = 0.5
+           saveBtnOutlet.layer.shadowOffset = CGSize(width: 3, height: 3)
+           saveBtnOutlet.layer.shadowColor = UIColor.black.cgColor
+           
+        }
+        
+     /*   saveBtnOutlet.layer.cornerRadius = 15*/
+        //saveBtnOutlet.clipsToBounds = true
+        /*
         saveBtnOutlet.layer.shadowRadius = 5
         saveBtnOutlet.layer.shadowOpacity = 0.5
         saveBtnOutlet.layer.shadowOffset = CGSize(width: 3, height: 3)
         saveBtnOutlet.layer.shadowColor = UIColor.black.cgColor
-        
+        */
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+    
 
     // MARK: - Table view data source
 

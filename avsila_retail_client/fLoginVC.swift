@@ -69,7 +69,20 @@ class fLoginVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        logInOutlet.layer.cornerRadius = 15
+       
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+      
+    }
+    
+     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+      /*  logInOutlet.layer.cornerRadius = 15
         logInOutlet.layer.shadowRadius = 5
         logInOutlet.layer.shadowOpacity = 0.5
         logInOutlet.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -87,15 +100,7 @@ class fLoginVC: UITableViewController {
         gradientColor.startPoint = CGPoint(x: 0, y: 0)
         gradientColor.endPoint = CGPoint(x: 1, y: 1)
 //
-        logInOutlet.layer.insertSublayer(gradientColor, at: 0)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-      
+        logInOutlet.layer.insertSublayer(gradientColor, at: 0)*/
     }
 
     // MARK: - Table view data source

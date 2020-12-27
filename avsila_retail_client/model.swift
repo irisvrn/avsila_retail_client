@@ -114,6 +114,25 @@ static let shared = Model()
           }
     }
     
+    func setSettings(switcherAdv: Bool) {
+             UserDefaults.standard.set(switcherAdv, forKey: "showAdv" )
+             UserDefaults.standard.synchronize()
+         }
+       
+    func setSettingsLoginStatus(loginValue:Bool) {
+        UserDefaults.standard.set(loginValue, forKey: "loginValue" )
+        UserDefaults.standard.synchronize()
+        self.loginValue = loginValue
+    }
+    
+    func getSettings() -> (Bool) {//получаем настройки
+        //     print("\(UserDefaults.standard.bool(forKey: "showAdv"))")
+             return (UserDefaults.standard.bool(forKey: "loginValue"))
+             
+         }
+    
+    
+    
     func loadJSONFileAlbums()  {
        // var strURL = "https://avsila.ru/test_index_2.php?action=download&file=products.json"
         var strURL = "https://itunes.apple.com/lookup?id=1093360&entity=album"

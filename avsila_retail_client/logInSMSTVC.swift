@@ -139,9 +139,11 @@ var timerTime: Int = 0
                 
                 //MARK:переходим на главную страницу
                 Model.shared.loginValue = true
+                Model.shared.setSettingsLoginStatus(loginValue:true)
                 let mainPage = self.storyboard?.instantiateViewController(identifier: "tabViewCont") as! UITabBarController
                  let appDelegate = UIApplication.shared.delegate
                  appDelegate?.window??.rootViewController = mainPage
+                
                 //прогрузить данные пользователя с сервера
                 
             } else {
