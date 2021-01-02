@@ -13,6 +13,11 @@ class fLoginVC: UITableViewController {
 
     var urlChangePass = "https://avsila.ru/auth/?forgot_password=yes" //страница смены пароля
     
+    
+    @IBOutlet weak var loginTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    
     @IBAction func changePassword(_ sender: Any) {
        
         var alert = UIAlertController(title: "Восстановление пароля", message: "Восстановить пароль можно на сайте avsila.ru", preferredStyle: .alert)
@@ -42,7 +47,9 @@ class fLoginVC: UITableViewController {
     @IBOutlet weak var logInOutlet: UIButton!
     
     @IBAction func logInSMSBtn(_ sender: Any) {
-                    let smsPage = self.storyboard?.instantiateViewController(identifier: "logInSMSTVC") as! logInSMSTVC
+                   
+      
+        let smsPage = self.storyboard?.instantiateViewController(identifier: "logInSMSTVC") as! logInSMSTVC
                      let appDelegate = UIApplication.shared.delegate
                      appDelegate?.window??.rootViewController = smsPage
     }
@@ -50,26 +57,26 @@ class fLoginVC: UITableViewController {
     @IBAction func logInBtn(_ sender: Any) {
         // http request
         
-        let message = UIAlertController(title: "Внимание", message: "следи за собой, будь осторожен", preferredStyle: .alert)
-             // let act = UIAlertAction(title: "ok", style: .default, handler: )
-              let act = UIAlertAction(title: "ok", style: .default) { (UIAlertAction) in
-                   Model.shared.loginValue = true
-                   let mainPage = self.storyboard?.instantiateViewController(identifier: "tabViewCont") as! UITabBarController
-                    let appDelegate = UIApplication.shared.delegate
-                    appDelegate?.window??.rootViewController = mainPage
-              }
-              let act2 = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-              message.addAction(act)
-              message.addAction(act2)
-              present(message, animated: true, completion: nil)
         
+        if loginTextField.text == "ied" && passwordTextField.text == "hornetf18" {
+            Model.shared.loginValue = true
+            Model.shared.setSettingsLoginStatus(loginValue:true)
+            let mainPage = self.storyboard?.instantiateViewController(identifier: "tabViewCont") as! UITabBarController
+             let appDelegate = UIApplication.shared.delegate
+             appDelegate?.window??.rootViewController = mainPage
+        } else {
+            let message = UIAlertController(title: "Неправильный логин или пароль", message: "Восстановить пароль можно на сайте avsila.ru или войти по СМС", preferredStyle: .alert)
+                  let act = UIAlertAction(title: "ok", style: .default, handler: nil)
+                  message.addAction(act)
+                  present(message, animated: true, completion: nil)
+        }
        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        
+        tableView.reloadData()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

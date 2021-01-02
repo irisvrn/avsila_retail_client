@@ -74,8 +74,11 @@ class HomeFirstVC: UIViewController {
         let registerViewController = self.storyboard?.instantiateViewController(identifier: "personalTVC") as! personalTVC
         self.present(registerViewController, animated: true, completion: nil)
     } else {
-        let registerViewController = self.storyboard?.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
-        self.present(registerViewController, animated: true, completion: nil)
+        Model.shared.loginType = 1
+        let vc = LoginViewController()
+        navigationController?.pushViewController(vc, animated: true)
+       /* let registerViewController = self.storyboard?.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
+        self.present(registerViewController, animated: true, completion: nil)*/
     }
     
  /*
@@ -93,19 +96,38 @@ extension HomeFirstVC: HomeDiscountCartFirstTableViewCellDelegate {
     func didTapAddDiscountCart() {
         
         if Model.shared.loginValue {
+            /*
+            let addCartPage = self.storyboard?.instantiateViewController(identifier: "AddCartViewController") as! AddCartViewController
+            let appDelegate = UIApplication.shared.delegate
+            appDelegate?.window??.rootViewController = addCartPage*/
+            
             let vc = AddCartViewController()
             //vc.title = post.postTyper.rawValue
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
         } else {
+            /*
+            let vcc = logInSMSTVC()
+            navigationController?.pushViewController(vcc, animated: true)
+            print("we are here")
+            */
+          /*
             let registerViewController = self.storyboard?.instantiateViewController(identifier: "fLoginVC") as! fLoginVC
            // registerViewController.modalPresentationStyle = .fullScreen
-            self.present(registerViewController, animated: true, completion: nil)
-          /*  let vc = fLoginVC()
-    
+            self.present(registerViewController, animated: true, completion: nil)*/
+            
+            
+            
+            
+            Model.shared.loginType = 2
+            let vc = LoginViewController()
+            //vc.title = "Create Account"
+            navigationController?.pushViewController(vc, animated: true)
+           // present(UINavigationController(rootViewController: vc), animated: true)
+            
             //vc.title = post.postTyper.rawValue
-            vc.navigationItem.largeTitleDisplayMode = .never
-            navigationController?.pushViewController(vc, animated: true)|*/
+           /* vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)*/
         }
     }
 }

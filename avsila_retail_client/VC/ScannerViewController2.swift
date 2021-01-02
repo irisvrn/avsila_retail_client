@@ -35,7 +35,7 @@ class ScannerViewController2: UIViewController, AVCaptureMetadataOutputObjectsDe
         session.addOutput(output)
         output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         
-        output.metadataObjectTypes = [AVMetadataObject.ObjectType.ean13] //types of data ean13, code128, qr ...
+        output.metadataObjectTypes = [AVMetadataObject.ObjectType.code39] //types of data ean13, code128, qr ...
         
         video = AVCaptureVideoPreviewLayer(session: session)
         //fill the intire screen
@@ -55,14 +55,20 @@ class ScannerViewController2: UIViewController, AVCaptureMetadataOutputObjectsDe
         {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject
             {
-                if object.type == AVMetadataObject.ObjectType.ean13
+                if object.type == AVMetadataObject.ObjectType.code39
                 {
                     print(object.stringValue)
                     
-                    let alert = UIAlertController(title: "Code", message: object.stringValue, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
-                    alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in
+                    let alert = UIAlertController(title: "Номер карты", message: object.stringValue, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Переснять", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (nil) in
                         UIPasteboard.general.string = object.stringValue
+                        Model.shared.discountCartNumber = object.stringValue!
+                        //self.dismiss(animated: true, completion: nil)
+                        //self.navigationController?.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "getdiscountcartnumber"), object: self)
+                        
                     }))
                     
                     present(alert, animated: true, completion: nil)
@@ -71,14 +77,6 @@ class ScannerViewController2: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

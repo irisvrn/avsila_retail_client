@@ -98,7 +98,7 @@ class AddCartViewController: UIViewController {
     
     private let barCodeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor =  nil
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "discountCard")
@@ -106,11 +106,14 @@ class AddCartViewController: UIViewController {
     }()
     
     @objc func didTapBackToFirstScreen() {
+        
+        self.navigationController?.popViewController(animated: true)
+     /*
     let vc = firstScreen()
-                //  vc.title = "Добавление дисконтной карты"
+                
                   let navVC = UINavigationController(rootViewController: vc)
                   navVC.modalPresentationStyle = .fullScreen
-                  present(navVC, animated: true)
+                  present(navVC, animated: true)*/
     }
     
     @objc func didTapGenerateBarCode() {
@@ -119,13 +122,14 @@ class AddCartViewController: UIViewController {
         print(textFieldCartNumber.text!)
         if let text = textFieldCartNumber.text {
             let data = text.data(using: .ascii, allowLossyConversion: false)
-           // filter = CIFilter(name: "CICode128BarcodeGenerator")
-            filter = CIFilter(name: "CIQRCodeGenerator")
+            filter = CIFilter(name: "CICode128BarcodeGenerator")
+            //filter = CIFilter(name: "CICode39BarcodeGenerator")
+            //filter = CIFilter(name: "CIQRCodeGenerator")
             filter.setValue(data, forKey: "inputMessage")
             let img = UIImage(ciImage: filter.outputImage!)
             barCodeImageView.image = img
         }
-        
+        textFieldCartNumber.resignFirstResponder()
     }
     
     
@@ -135,10 +139,6 @@ class AddCartViewController: UIViewController {
         let vc = ScannerViewController2()
         vc.title = "camera"
         navigationController?.pushViewController(vc, animated: true)
-        
-            /*
-        let registerViewController = self.storyboard?.instantiateViewController(identifier: "ScannerViewController") as! ScannerViewController
-        navigationController?.pushViewController(registerViewController, animated: true)*/
     }
     
     override func viewDidLoad() {
@@ -153,6 +153,15 @@ class AddCartViewController: UIViewController {
         view.addSubview(buttonGenerateBarCode)
         view.addSubview(barCodeImageView)
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "getdiscountcartnumber"), object: nil, queue: nil) { (notification) in
+            
+            //MARK: обновляем картинку в основном потоке
+          //  DispatchQueue.main.sync {
+             self.textFieldCartNumber.text = Model.shared.discountCartNumber
+                //self.tableView.reloadData()
+                
+        //    }
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -162,8 +171,17 @@ class AddCartViewController: UIViewController {
         //проверка заполнения поля и верификация карты
     
         if checkCart() {
-            let registerViewController = self.storyboard?.instantiateViewController(identifier: "logInSMSTVC") as! logInSMSTVC
-            navigationController?.pushViewController(registerViewController, animated: true)
+            /*let vc = logInSMSTVC()
+            vc.navigationItem.title = "СМС авторизация"
+            vc.navigationItem.backButtonTitle = "Назад"
+            navigationController?.pushViewController(vc, animated: true)*/
+            
+            //ЗДесь будет sms
+            
+            Model.shared.loginType = 0
+            let vc = HomeFirstVC()
+            navigationController?.popToRootViewController(animated: true)
+            
         } else {
             let message = UIAlertController(title: "Некорректный номер дисконтной карты", message: "Проверьте номер карты или обратитесь по телефону \n +7(473) 207-45-85", preferredStyle: .alert)
             let act = UIAlertAction(title: "ok", style: .default) { (UIAlertAction) in
@@ -202,28 +220,28 @@ class AddCartViewController: UIViewController {
         textFieldCartNumber.frame = CGRect(x: 10,
                                            y: descriptionLabel.frame.origin.y + descriptionLabel.frame.height + 10,
                                            width: view.layer.frame.width - 20,
-                                           height: 50)
+                                           height: 30)
         buttonPhotoCartNamber.frame = CGRect(x: 10,
                                              y: textFieldCartNumber.frame.origin.y + textFieldCartNumber.frame.height + 10,
                                              width: view.layer.frame.width - 20,
-                                             height: 50)
+                                             height: 30)
         buttonNext.frame = CGRect(x: 10,
                                   y: buttonPhotoCartNamber.frame.origin.y + buttonPhotoCartNamber.frame.height + 10,
                                   width: view.layer.frame.width - 20,
-                                  height: 50)
+                                  height: 30)
         buttonaBackToFirstScreen.frame = CGRect(x: 10,
                                                 y:buttonNext.frame.origin.y+buttonNext.frame.height + 10,
                                                 width: view.layer.frame.width - 20,
                                                 height: 50)
         buttonGenerateBarCode.frame = CGRect(x: 10,
                                              y: buttonaBackToFirstScreen.frame.origin.y + buttonaBackToFirstScreen.frame.height+10,
-                                             width: view.layer.frame.width - 20, height: 50)
+                                             width: view.layer.frame.width - 20, height: 30)
         
         let size = view.frame.width / 3 * 2
         barCodeImageView.frame = CGRect(x: view.frame.width/2-(size/2),
                                         y: buttonGenerateBarCode.frame.origin.y + buttonGenerateBarCode.frame.height + 10,
                                         width: size,
-                                        height: size)
+                                        height: size/2)
   
     }
 

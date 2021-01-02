@@ -66,7 +66,10 @@ class Model: NSObject {
     var brandFullList : [brandlist] = []
     var articles : [articlelist] = []
     var loginValue : Bool = true
+    var loginType: Int = 0
     var multibrand : Bool = true
+    var discountCartNumber = String()
+    
     
 static let shared = Model()
     

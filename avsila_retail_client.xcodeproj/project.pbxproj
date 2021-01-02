@@ -25,6 +25,8 @@
 		4473137B2591E81F00871884 /* BlogSecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4473137A2591E81F00871884 /* BlogSecondTableViewCell.swift */; };
 		4473137E2594EFE600871884 /* WebMoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4473137D2594EFE600871884 /* WebMoreInfoViewController.swift */; };
 		447313812598D18100871884 /* ScannerViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447313802598D18000871884 /* ScannerViewController2.swift */; };
+		4473138425A0B4A200871884 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4473138325A0B4A200871884 /* LoginViewController.swift */; };
+		4473138825A0C8B700871884 /* LoginSMSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4473138725A0C8B700871884 /* LoginSMSViewController.swift */; };
 		448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BF42F242F5C9E00993748 /* searchTableViewCell.swift */; };
 		44B016C82580F89C00ECCE21 /* AddCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B016C72580F89C00ECCE21 /* AddCartViewController.swift */; };
 		44B016CA2585627600ECCE21 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B016C92585627600ECCE21 /* ScannerViewController.swift */; };
@@ -61,6 +63,8 @@
 		4473137A2591E81F00871884 /* BlogSecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogSecondTableViewCell.swift; sourceTree = "<group>"; };
 		4473137D2594EFE600871884 /* WebMoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebMoreInfoViewController.swift; sourceTree = "<group>"; };
 		447313802598D18000871884 /* ScannerViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController2.swift; sourceTree = "<group>"; };
+		4473138325A0B4A200871884 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4473138725A0C8B700871884 /* LoginSMSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSMSViewController.swift; sourceTree = "<group>"; };
 		448BF42F242F5C9E00993748 /* searchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchTableViewCell.swift; sourceTree = "<group>"; };
 		44B016C72580F89C00ECCE21 /* AddCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCartViewController.swift; sourceTree = "<group>"; };
 		44B016C92585627600ECCE21 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
@@ -153,11 +157,13 @@
 		44B016C62580F86F00ECCE21 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				44731354258B7F3D00871884 /* HomeFirstVC.swift */,
 				44B016C72580F89C00ECCE21 /* AddCartViewController.swift */,
 				44B016C92585627600ECCE21 /* ScannerViewController.swift */,
 				447313802598D18000871884 /* ScannerViewController2.swift */,
-				44731354258B7F3D00871884 /* HomeFirstVC.swift */,
 				4473137D2594EFE600871884 /* WebMoreInfoViewController.swift */,
+				4473138325A0B4A200871884 /* LoginViewController.swift */,
+				4473138725A0C8B700871884 /* LoginSMSViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 				44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */,
 				44731368258E93BB00871884 /* HomeDiscountCartLoggedOffTableViewCell.swift in Sources */,
 				44EE389A2401B335004567D0 /* SearchVC.swift in Sources */,
+				4473138825A0C8B700871884 /* LoginSMSViewController.swift in Sources */,
 				44731359258B8A2000871884 /* HomeDiscountCartFirstTableViewCell.swift in Sources */,
 				447313702591DD6200871884 /* ActionFirstTableViewCell.swift in Sources */,
 				44EE389623F97A6F004567D0 /* shopsVC.swift in Sources */,
@@ -294,6 +301,7 @@
 				4473137E2594EFE600871884 /* WebMoreInfoViewController.swift in Sources */,
 				448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */,
 				4473136C2590C85000871884 /* ServiceFirstTableViewCell.swift in Sources */,
+				4473138425A0B4A200871884 /* LoginViewController.swift in Sources */,
 				4473135F258B944900871884 /* HomeDiscountCartSecondTableViewCell.swift in Sources */,
 				4439565A24D1B1AA0005B542 /* STOCollectionViewCell.swift in Sources */,
 				44731362258B989400871884 /* HomeDiscountCartThirdTableViewCell.swift in Sources */,
