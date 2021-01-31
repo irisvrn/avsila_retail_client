@@ -396,21 +396,22 @@ static let shared = Model()
             }
         }.resume()*/
         
-        let paramString = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+       /* let paramString = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
         
         let urlString :String = "https://dev1.avsila.ru/api/index.php?" + paramString
         print(urlString)
+        */
         
-        var request = URLRequest(url: endpoint)
+        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let postString = "postDataKey=value"
-        request.httpBody = postString.data(using: .utf8)
+        let parametrs = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        let httpBody = Data(parametrs.utf8)
+        request.httpBody = httpBody
         
-        
-        
-        guard let url = URL(string: urlString) else {return}
+        //guard let url = URL(string: urlString) else {return}
                   
-                  let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                  let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     
                       if error == nil {
                         if data != nil {

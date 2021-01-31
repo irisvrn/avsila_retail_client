@@ -30,8 +30,8 @@
             filePath = "avsila_retail_client/model.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "558"
-            endingLineNumber = "558"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
             landmarkName = "phoneAuth(code:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,42 +46,10 @@
             filePath = "avsila_retail_client/model.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "521"
+            endingLineNumber = "521"
             landmarkName = "phoneAuth(code:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "186B6540-2524-45A9-9A17-1B2C701A5C47 - d4459c825b47b812"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "avsila_&#x43b;&#x43e;&#x44f;&#x43b;&#x44c;&#x43d;&#x43e;&#x441;&#x442;&#x44c;.Model.phoneAuth2() -&gt; ()"
-                  moduleName = "avsila &#x43b;&#x43e;&#x44f;&#x43b;&#x44c;&#x43d;&#x43e;&#x441;&#x442;&#x44c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/eugene/Yandex.Disk.localized/xCode/avsila_retail_client/avsila_retail_client/model.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "520"
-                  endingLineNumber = "520"
-                  offsetFromSymbolStart = "3331">
-               </Location>
-               <Location
-                  uuid = "186B6540-2524-45A9-9A17-1B2C701A5C47 - 3a91a0aeb8ae09b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in avsila_&#x43b;&#x43e;&#x44f;&#x43b;&#x44c;&#x43d;&#x43e;&#x441;&#x442;&#x44c;.Model.phoneAuth2() -&gt; ()"
-                  moduleName = "avsila &#x43b;&#x43e;&#x44f;&#x43b;&#x44c;&#x43d;&#x43e;&#x441;&#x442;&#x44c;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/eugene/Yandex.Disk.localized/xCode/avsila_retail_client/avsila_retail_client/model.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "521"
-                  endingLineNumber = "521"
-                  offsetFromSymbolStart = "124">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
