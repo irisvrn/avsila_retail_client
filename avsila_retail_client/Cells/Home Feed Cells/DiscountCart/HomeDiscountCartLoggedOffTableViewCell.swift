@@ -82,8 +82,10 @@ class HomeDiscountCartLoggedOffTableViewCell: UITableViewCell {
           contentView.addSubview(noCartLogoImage)
           contentView.addSubview(noCartMessageLabel)
           contentView.addSubview(noCartMessageDescriptionLabel)
+            
           contentView.addSubview(logInButton)
           contentView.addSubview(registerButton)
+          
           logInButton.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
           registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
         }

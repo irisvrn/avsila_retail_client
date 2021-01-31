@@ -26,7 +26,11 @@ class HomeDiscountCartSecondTableViewCell: UITableViewCell {
             let button = UIButton()
             button.tintColor = .label
          //   button.backgroundColor = .white
+            if (Model.shared.getSettingsDiscountCartImg() != nil) {
+                button.setImage(Model.shared.getSettingsDiscountCartImg(), for: .normal)
+            } else {
             button.setImage(UIImage(named: "barcode"), for: .normal)
+            }
             return button
         }()
     
@@ -45,10 +49,24 @@ class HomeDiscountCartSecondTableViewCell: UITableViewCell {
             selectionStyle = .none
            
             contentView.addSubview(imageBack)
-            imageBack.addSubview(barCodeImageView)
+            contentView.backgroundColor = .white
+            //imageBack.addSubview(barCodeImageView)
             contentView.addSubview(barCodeButton)
             barCodeButton.addTarget(self, action: #selector(didTapBarCode), for: .touchUpInside)
           //  barCodeImageView.image = UIImage(named: "barcode")
+            
+            
+            NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "cartrefresh"), object: nil, queue: nil) { (notification) in
+                if (Model.shared.getSettingsDiscountCartImg() != nil) {
+                    self.barCodeButton.setImage(Model.shared.getSettingsDiscountCartImg(), for: .normal)
+                }
+                //MARK: обновляем картинку в основном потоке
+              //  DispatchQueue.main.sync {
+                    
+              
+                    
+            //    }
+            }
             
         }
         

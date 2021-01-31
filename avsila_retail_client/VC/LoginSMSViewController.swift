@@ -26,6 +26,7 @@ class LoginSMSViewController: UIViewController {
     var rndcode = Int()
     var myTimer = Timer()
     var timerTime: Int = 0
+    var phone:String = ""
         
     struct Constants {
         static let cornerRadius: CGFloat = 8.0
@@ -41,6 +42,28 @@ class LoginSMSViewController: UIViewController {
         return label
     }()
     
+    private let messageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Введите код из SMS"
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.isHidden = true
+        return label
+    }()
+    
+    private let counterLabel: UILabel = {
+        let label = UILabel()
+        label.text = "сек"
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.isHidden = true
+        return label
+    }()
+    
+
+    
     private let phoneInput: UITextField = {
         let field = UITextField()
         field.placeholder = "Телефон"
@@ -54,39 +77,84 @@ class LoginSMSViewController: UIViewController {
         field.backgroundColor = .secondarySystemBackground
         field.layer.borderWidth = 1.0
         field.layer.borderColor = UIColor.secondaryLabel.cgColor
+        field.font = .systemFont(ofSize: 22, weight: .regular )
+        field.keyboardType = .phonePad
+        field.addTarget(self, action: #selector(phoneInputCheck), for: UIControl.Event.editingChanged)
         return field
     }()
     
     private let getCodeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Получить код", for: .normal)
-      //  button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.secondaryLabel, for: .normal)
         button.isEnabled = false
+        button.addTarget(self, action: #selector(getSMSCodeBtn), for: .touchUpInside)
         return button
     }()
-       // @IBOutlet weak var phoneInput: UITextField!
+    
+    private let checkPhoneButtonIn: UIButton = {
+        let button = UIButton()
+        button.setTitle("in", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+       // button.isEnabled = false
+        let rr = 1
+        button.addTarget(self, action: #selector(checkPhoneIn), for: .touchUpInside)
+        return button
+    }()
+    
+    private let checkPhoneButtonSt: UIButton = {
+        let button = UIButton()
+        button.setTitle("reg", for: .normal)
+        button.setTitleColor(.systemGreen, for: .normal)
+       // button.isEnabled = false
+        button.addTarget(self, action: #selector(checkPhoneSt), for: .touchUpInside)
+        return button
+    }()
+    
+    private let checkPhoneButtonOut: UIButton = {
+        let button = UIButton()
+        button.setTitle("out", for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+       // button.isEnabled = false
+        button.addTarget(self, action: #selector(checkPhoneOut), for: .touchUpInside)
+        return button
+    }()
+    
+    private let codeInput:UITextField = {
+        let field = UITextField()
+        field.placeholder = "код"
+        field.returnKeyType = .next
+        //field.leftViewMode = .always
+        //field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        field.autocapitalizationType = .none
+        field.autocorrectionType = .no
+        field.layer.masksToBounds = true
+        field.layer.cornerRadius = Constants.cornerRadius
+        field.backgroundColor = .secondarySystemBackground
+        field.layer.borderWidth = 1.0
+        field.layer.borderColor = UIColor.secondaryLabel.cgColor
+        field.textAlignment = .center
+        field.font = .systemFont(ofSize: 24, weight: .bold )
+        field.keyboardType = .numberPad
+        field.isHidden = true
+        field.addTarget(self, action: #selector(codeInputChange), for: UIControl.Event.editingChanged)
+        return field
+    }()
+    
+        
+//        @IBAction func phoneInputFocus(_ sender: UITextField) {
+//            phoneInput.text = "+7 ("
+//
+//            let arbitraryValue: Int = 4
+//            if let newPosition = phoneInput.position(from: phoneInput.beginningOfDocument, offset: arbitraryValue) {
+//
+//                phoneInput.selectedTextRange = phoneInput.textRange(from: newPosition, to: newPosition)
+//            }
+//        }
         
         
-        @IBOutlet weak var timerLabel: UILabel!
-        
-        @IBOutlet weak var getSMSbtnOutlet: UIButton!
-        
-        @IBAction func phoneInputFocus(_ sender: UITextField) {
-            phoneInput.text = "+7 ("
-           
-            let arbitraryValue: Int = 4
-            if let newPosition = phoneInput.position(from: phoneInput.beginningOfDocument, offset: arbitraryValue) {
-
-                phoneInput.selectedTextRange = phoneInput.textRange(from: newPosition, to: newPosition)
-            }
-        }
-        
-       
-        
-        
-        
-        @IBAction func phoneInputCheck(_ sender: UITextField) {
+            
+        @objc private func phoneInputCheck(_ sender: UITextField) {
            
             let  char = String(describing: String.Encoding.utf8)
              let isBackSpace = strcmp(char, "\\b")
@@ -114,7 +182,8 @@ class LoginSMSViewController: UIViewController {
                          }
                 else if (phoneInput.text?.count)! == 18
                 {
-                    getSMSbtnOutlet.isEnabled = true
+                    getCodeButton.isEnabled = true
+                    getCodeButton.setTitleColor(.systemBlue, for: .normal)
                     print("complete")
                 }
                 else if (phoneInput.text?.count)! > 18
@@ -124,14 +193,31 @@ class LoginSMSViewController: UIViewController {
             
             
         }
+    
+    @objc func checkPhoneIn() {
+        
+          //  Model.shared.phoneAuth(code: 1)
+        Model.shared.phoneAuth2()
+        }
 
-        @IBAction func getSMSCodeBtn(_ sender: Any) {
-         
+    
+    @objc func checkPhoneSt() {
+            
+          //  Model.shared.phoneRegister2()
+        }
+    
+    @objc func checkPhoneOut() {
+        
+            Model.shared.phoneAuth(code: 3)
+        }
+    
+        @objc private func getSMSCodeBtn(_ sender: Any) {
+            
             //MARK: validate phone number empty and bigger
             if (phoneInput.text == "") || (phoneInput.text!.count > 18 ) || (phoneInput.text!.count < 18 ) {
                 let message = UIAlertController(title: "Внимание!", message: "Введите корректный номер телефона \(phoneInput.text?.count)", preferredStyle: .alert)
                             // let act = UIAlertAction(title: "ok", style: .default, handler: )
-                    let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: nil)
+                    let act3 = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                 
                     message.addAction(act3)
                     present(message, animated: true, completion: nil)
@@ -144,64 +230,72 @@ class LoginSMSViewController: UIViewController {
                 replaced = replaced.replacingOccurrences(of: ")", with: "")
                 replaced = replaced.replacingOccurrences(of: "-", with: "")
                 replaced = replaced.replacingOccurrences(of: " ", with: "")
+                replaced = replaced.replacingOccurrences(of: "+", with: "")
                print(replaced)
+                phone = replaced
             }
             
-            rndcode = Int.random(in: 0...9999) //генерим случайный код
-            print("send sms \(rndcode)")
-            
+//            rndcode = Int.random(in: 0...9999) //генерим случайный код
+//            print("send sms \(rndcode)")
+//
+           // Model.shared.phoneRegister2(phoneNumber: phone)
+            Model.shared.phoneRegister3(phoneNumber: phone)
             //MARK: Расскоментировать на проде
             //Model.shared.sendSMS(code: String(rndcode))
             
-            enterCodeLbl.isHidden = false
-            codeinputOutlet.isHidden = false
-            timerLabel.isHidden = false
-            codeinputOutlet.becomeFirstResponder() //фокус на поле ввода кода
-            timerTime = 20
+            messageLabel.isHidden = false
+            counterLabel.isHidden = false
+            codeInput.isHidden = false
+            codeInput.becomeFirstResponder() //фокус на поле ввода кода
+            timerTime = 120
             startTimer()
         
         }
         
      
         
-        @IBOutlet weak var enterCodeLbl: UILabel!
         @IBOutlet weak var codeinputOutlet: UITextField!
         
 
-        @IBAction func codeInputChange(_ sender: UITextField) {
+        @objc private func codeInputChange(_ sender: UITextField) {
             
-            if codeinputOutlet.text?.count == String(rndcode).count {
-                if codeinputOutlet.text == String(rndcode) {
+            if codeInput.text?.count == String(rndcode).count {
+               // if codeInput.text == String(rndcode) {
                      print("код совпадает")
                      
                     //MARK: запрос к серверу - поиск по номеру телефона пользователя , если 2 то обратиться в сервис
-                    
+                    Model.shared.phoneCheckCode2(phoneNumber: phone, codeNumber: codeInput.text!)
                     //MARK:переходим на главную страницу
+                    
                     Model.shared.loginValue = true
                     Model.shared.setSettingsLoginStatus(loginValue:true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+                    Model.shared.loginType = 0
+                    self.navigationController?.popToRootViewController(animated: true)
+                    /*
                     let mainPage = self.storyboard?.instantiateViewController(identifier: "tabViewCont") as! UITabBarController
                      let appDelegate = UIApplication.shared.delegate
                      appDelegate?.window??.rootViewController = mainPage
-                    
+                    */
                     //прогрузить данные пользователя с сервера
                     
-                } else {
+                /*} else {
                     print("Код неправильный")
                     
                     let message = UIAlertController(title: "Внимание!", message: "Введите корректный код ", preferredStyle: .alert)
                     //let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: nil)
                     let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: { (UIAlertAction) in
-                        self.codeinputOutlet.text = ""
+                        self.codeInput.text = ""
                     })
                     message.addAction(act3)
                     present(message, animated: true, completion: nil)
-                }
-            } else if ((codeinputOutlet.text!.count) > String(rndcode).count) {
+                } */
+            } else if ((codeInput.text!.count) > String(rndcode).count) {
                 print("Код неправильный")
                 
                 let message = UIAlertController(title: "Внимание!", message: "Введите корректный код ", preferredStyle: .alert)
                     let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: { (UIAlertAction) in
-                                                          self.codeinputOutlet.text = ""
+                                                          self.codeInput.text = ""
                                                       })
                     message.addAction(act3)
                     present(message, animated: true, completion: nil)
@@ -217,7 +311,13 @@ class LoginSMSViewController: UIViewController {
             view.addSubview(startLabel)
             view.addSubview(phoneInput)
             view.addSubview(getCodeButton)
-
+            view.addSubview(checkPhoneButtonIn)
+            view.addSubview(checkPhoneButtonSt)
+            view.addSubview(checkPhoneButtonOut)
+            view.addSubview(messageLabel)
+            view.addSubview(counterLabel)
+            view.addSubview(codeInput)
+            phoneInput.delegate = self
         }
     
     override func viewDidLayoutSubviews() {
@@ -239,6 +339,40 @@ class LoginSMSViewController: UIViewController {
             y: phoneInput.frame.origin.y+phoneInput.frame.height+10,
             width: view.frame.width-20,
             height: 50.0)
+        
+        checkPhoneButtonIn.frame = CGRect(
+            x: 10,
+            y: phoneInput.frame.origin.y+phoneInput.frame.height+30,
+            width: 60,
+            height: 50.0)
+        checkPhoneButtonSt.frame = CGRect(
+            x: 80,
+            y: phoneInput.frame.origin.y+phoneInput.frame.height+30,
+            width: 60,
+            height: 50.0)
+        checkPhoneButtonOut.frame = CGRect(
+            x: 150,
+            y: phoneInput.frame.origin.y+phoneInput.frame.height+30,
+            width: 60,
+            height: 50.0)
+        
+        
+        
+        messageLabel.frame = CGRect(
+            x: 25,
+            y: getCodeButton.frame.origin.y+getCodeButton.frame.height+20,
+            width: view.frame.width-50,
+            height: 20.0)
+        counterLabel.frame = CGRect(
+            x: 25,
+            y: messageLabel.frame.origin.y+messageLabel.frame.height+10,
+            width: view.frame.width-50,
+            height: 20.0)
+        codeInput.frame = CGRect(
+            x: view.frame.width/2-50,
+            y: counterLabel.frame.origin.y+counterLabel.frame.height+10,
+            width: 100,
+            height: 52.0)
     }
 
         func startTimer() {
@@ -249,11 +383,11 @@ class LoginSMSViewController: UIViewController {
          @objc func myTimerAction() {
              if timerTime>0 {
                  timerTime -= 1
-                 timerLabel.text = String(timerTime) + " сек."
+                 counterLabel.text = String(timerTime) + " сек."
              } else {
                //  myButton.setTitle("Start", for: .normal)
                //  myButton.alpha = 1
-                timerLabel.text = "Время истекло. Повторите попытку."
+                counterLabel.text = "Время истекло. Повторите попытку."
                 rndcode = 7843
                 myTimer.invalidate()
              }
@@ -262,3 +396,15 @@ class LoginSMSViewController: UIViewController {
         
         
     }
+
+extension LoginSMSViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        phoneInput.text = "+7 ("
+       
+        let arbitraryValue: Int = 4
+        if let newPosition = phoneInput.position(from: phoneInput.beginningOfDocument, offset: arbitraryValue) {
+
+            phoneInput.selectedTextRange = phoneInput.textRange(from: newPosition, to: newPosition)
+        }
+    }
+}

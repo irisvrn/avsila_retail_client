@@ -63,10 +63,10 @@ class AddCartViewController: UIViewController {
         //button.setImage(UIImage(systemName: "camera"), for: .normal)
         button.tintColor = .systemBlue
         button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
+        //button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.systemBlue.cgColor
-        button.setTitleColor(.systemBlue, for: .normal)
-       // button.backgroundColor = .systemBlue
+       // button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemBlue
         button.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
         return button
     }()
@@ -95,6 +95,22 @@ class AddCartViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapGenerateBarCode), for: .touchUpInside)
         return button
        }()
+    
+    private let switchBarCodeTypeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Code128/Code39"
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .secondaryLabel
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private let switchBarCodeType: UISwitch = {
+        let switcher = UISwitch()
+        switcher.setOn(true, animated: true)
+        return switcher
+    }()
     
     private let barCodeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -128,6 +144,7 @@ class AddCartViewController: UIViewController {
             filter.setValue(data, forKey: "inputMessage")
             let img = UIImage(ciImage: filter.outputImage!)
             barCodeImageView.image = img
+            Model.shared.setSettingsDiscountCartImg(discountCartImage: img)
         }
         textFieldCartNumber.resignFirstResponder()
     }
@@ -136,6 +153,11 @@ class AddCartViewController: UIViewController {
     @objc func  didTapCameraBarCode() {
         
        // let vc = ScannerViewController()
+        if switchBarCodeType.isOn {
+            Model.shared.BarCodeType = "Code39"
+        } else {
+            Model.shared.BarCodeType = "Code128"
+        }
         let vc = ScannerViewController2()
         vc.title = "camera"
         navigationController?.pushViewController(vc, animated: true)
@@ -149,7 +171,10 @@ class AddCartViewController: UIViewController {
         view.addSubview(textFieldCartNumber)
         view.addSubview(buttonPhotoCartNamber)
         view.addSubview(buttonNext)
-        view.addSubview(buttonaBackToFirstScreen)
+       // view.addSubview(buttonaBackToFirstScreen)
+        view.addSubview(switchBarCodeTypeLabel)
+        view.addSubview(switchBarCodeType)
+        switchBarCodeType.setOn(true, animated: true)
         view.addSubview(buttonGenerateBarCode)
         view.addSubview(barCodeImageView)
         
@@ -171,15 +196,13 @@ class AddCartViewController: UIViewController {
         //проверка заполнения поля и верификация карты
     
         if checkCart() {
-            /*let vc = logInSMSTVC()
-            vc.navigationItem.title = "СМС авторизация"
-            vc.navigationItem.backButtonTitle = "Назад"
-            navigationController?.pushViewController(vc, animated: true)*/
-            
             //ЗДесь будет sms
-            
+            didTapGenerateBarCode()
+            Model.shared.setSettingsDiscountCartStatus(discountCart: textFieldCartNumber.text!)
             Model.shared.loginType = 0
             let vc = HomeFirstVC()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "cartrefresh"), object: self)
             navigationController?.popToRootViewController(animated: true)
             
         } else {
@@ -220,21 +243,32 @@ class AddCartViewController: UIViewController {
         textFieldCartNumber.frame = CGRect(x: 10,
                                            y: descriptionLabel.frame.origin.y + descriptionLabel.frame.height + 10,
                                            width: view.layer.frame.width - 20,
-                                           height: 30)
+                                           height: 50)
+        
+        switchBarCodeTypeLabel.frame = CGRect(x: 10,
+                                              y:textFieldCartNumber.frame.origin.y+textFieldCartNumber.frame.height + 10,
+                                              width: 150,
+                                              height: 30)
+        switchBarCodeType.frame = CGRect(x: view.layer.frame.width - 60,
+                                         y:textFieldCartNumber.frame.origin.y+textFieldCartNumber.frame.height + 10,
+                                         width: 40,
+                                         height: 20)
+        
         buttonPhotoCartNamber.frame = CGRect(x: 10,
-                                             y: textFieldCartNumber.frame.origin.y + textFieldCartNumber.frame.height + 10,
+                                             y: switchBarCodeTypeLabel.frame.origin.y + switchBarCodeTypeLabel.frame.height + 10,
                                              width: view.layer.frame.width - 20,
                                              height: 30)
         buttonNext.frame = CGRect(x: 10,
                                   y: buttonPhotoCartNamber.frame.origin.y + buttonPhotoCartNamber.frame.height + 10,
                                   width: view.layer.frame.width - 20,
                                   height: 30)
-        buttonaBackToFirstScreen.frame = CGRect(x: 10,
+       /* buttonaBackToFirstScreen.frame = CGRect(x: 10,
                                                 y:buttonNext.frame.origin.y+buttonNext.frame.height + 10,
                                                 width: view.layer.frame.width - 20,
-                                                height: 50)
+                                                height: 50)*/
+       
         buttonGenerateBarCode.frame = CGRect(x: 10,
-                                             y: buttonaBackToFirstScreen.frame.origin.y + buttonaBackToFirstScreen.frame.height+10,
+                                             y: buttonNext.frame.origin.y + buttonNext.frame.height+10,
                                              width: view.layer.frame.width - 20, height: 30)
         
         let size = view.frame.width / 3 * 2

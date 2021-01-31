@@ -35,8 +35,12 @@ class ScannerViewController2: UIViewController, AVCaptureMetadataOutputObjectsDe
         session.addOutput(output)
         output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         
-        output.metadataObjectTypes = [AVMetadataObject.ObjectType.code39] //types of data ean13, code128, qr ...
-        
+        if Model.shared.BarCodeType == "Code39" {
+            output.metadataObjectTypes = [AVMetadataObject.ObjectType.code39] //types of data ean13, code128, qr ...
+        } else
+        {
+            output.metadataObjectTypes = [AVMetadataObject.ObjectType.code128]
+        }
         video = AVCaptureVideoPreviewLayer(session: session)
         //fill the intire screen
         
@@ -55,7 +59,7 @@ class ScannerViewController2: UIViewController, AVCaptureMetadataOutputObjectsDe
         {
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject
             {
-                if object.type == AVMetadataObject.ObjectType.code39
+                if object.type == AVMetadataObject.ObjectType.code39 || object.type == AVMetadataObject.ObjectType.code128
                 {
                     print(object.stringValue)
                     

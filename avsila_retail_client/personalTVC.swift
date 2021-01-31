@@ -16,7 +16,7 @@ class personalTVC: UITableViewController {
         //MARK: запустить controller с входом
         Model.shared.loginValue = false
         Model.shared.setSettingsLoginStatus(loginValue:false)
-        
+        Model.shared.setSettingsDiscountCartStatus(discountCart: "xxxxxxxx") 
         self.dismiss(animated: true, completion: nil)
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)

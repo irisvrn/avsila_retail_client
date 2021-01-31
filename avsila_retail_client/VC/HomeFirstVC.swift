@@ -32,6 +32,7 @@ class HomeFirstVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(Model.shared.getSettingsDiscountCartStatus())
         view.backgroundColor = .green
         view.addSubview(tableView)
         navigationItem.title = "Домой"
@@ -211,6 +212,7 @@ extension HomeFirstVC: UITableViewDelegate,UITableViewDataSource {
                 }
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HomeDiscountCartThirdTableViewCell.identifier, for: indexPath) as! HomeDiscountCartThirdTableViewCell
+                
                 return cell
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HomeDiscountCartFourthTableViewCell.identifier, for: indexPath) as! HomeDiscountCartFourthTableViewCell

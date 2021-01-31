@@ -13,31 +13,31 @@ class HomeDiscountCartThirdTableViewCell: UITableViewCell {
             static let identifier = "HomeDiscountCartThirdTableViewCell"
             
             
-            private let usernameLabel: UILabel = {
+            private let discountCartNumberLabel: UILabel = {
                 let label = UILabel()
                 label.textColor = .label
                 label.numberOfLines = 1
                 label.font = .systemFont(ofSize: 18, weight: .medium)
                 label.textAlignment = .center
-                label.text = "Номер дисконтной карты: d0251314"
+                label.text = "Номер дисконтной карты: " + Model.shared.getSettingsDiscountCartStatus()
                 return label
-            }()
-            
-            private let moreButton: UIButton = {
-               let button = UIButton()
-                button.tintColor = .label
-                button.setImage(UIImage(systemName: "plus"), for: .normal)
-                return button
             }()
             
             override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
               super.init(style: style, reuseIdentifier: reuseIdentifier)
                 selectionStyle = .none
-            //  contentView.addSubview(profilePhotoImageView)
+                contentView.addSubview(discountCartNumberLabel)
+                NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "cartrefresh"), object: nil, queue: nil) { (notification) in
+                    
+                    //MARK: обновляем картинку в основном потоке
+                  //  DispatchQueue.main.sync {
+                        
+                        self.discountCartNumberLabel.text = "Номер дисконтной карты: " + Model.shared.getSettingsDiscountCartStatus()
+                        
+                //    }
+                }
                 
-              contentView.addSubview(usernameLabel)
-             // contentView.addSubview(moreButton)
-            //  moreButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+            
             }
             
             required init?(coder: NSCoder) {
@@ -67,15 +67,7 @@ class HomeDiscountCartThirdTableViewCell: UITableViewCell {
             override func layoutSubviews() {
                 super.layoutSubviews()
                 let size = contentView.frame.height-4
-                //usernameLabel.frame = CGRect(x: 2, y: 2, width: 100, height: 50)
-            /*  profilePhotoImageView.frame = CGRect(x: 2,
-                                                   y: 2,
-                                                   width: size,
-                                                   height: size)
-              profilePhotoImageView.layer.cornerRadius = size/2*/
-                
-              moreButton.frame = CGRect(x: contentView.frame.width-size, y: 2, width: size, height: size)
-              usernameLabel.frame = CGRect(x: 10,
+                discountCartNumberLabel.frame = CGRect(x: 10,
                                            y: 2,
                                            width: contentView.frame.width-2,
                                            height: contentView.frame.height-4)

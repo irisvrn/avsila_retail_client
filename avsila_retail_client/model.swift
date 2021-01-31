@@ -59,6 +59,7 @@
 
 import Foundation
 import UIKit
+import CryptoKit
 
 class Model: NSObject {
     var resultAlbums: [albums] = []
@@ -69,6 +70,25 @@ class Model: NSObject {
     var loginType: Int = 0
     var multibrand : Bool = true
     var discountCartNumber = String()
+    var discountCart: String = ""
+    var BarCodeType: String = "Code39"
+    //михаил
+    let registerphone: String = "79056580157"
+    // let deviceid: String = "8a08dca22a581b0b"
+    //  let devicetype:String = "iPhone13,4%20:%20iPhone%2012%20Pro%20Max"
+    let deviceId: String  = UIDevice.current.identifierForVendor!.uuidString
+ 
+    var devicetype = UIDevice.current.name
+    let token :String = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMTY1OCwiZXhwIjoxNjExMTQwOTAwfQ==.9ad4e74b7843c6162f6360b157eccb32a907b5df530517fb2444d27c06d8e16cb69f9bdb1e5c95372a16f734a0c85760"
+    
+    let password: String = "437751"
+    let customerCode: String = "000009698"
+    let customerDescr: String = "ART-АВТОСЕРВИС (ООО)"
+    let customerId: String = "0f352dbd-e0de-11e8-bf31-001517990cd9"
+   // let token: String = "7f72a68144bd55c71f2a066c2f9a43c2ef3240f7d1628ec43916bb1c31ceae71"
+    let login: String = "tesst"
+    
+    
     
     
 static let shared = Model()
@@ -82,6 +102,15 @@ static let shared = Model()
             artworkUrl100 = dictionary["artworkUrl100"] as? String ?? ""
         }
     }
+    //MARK: парсим ответ с сервера для decode
+
+    
+    struct authResponse: Codable {
+        var token: String?
+        var error: Bool
+        var message: String?
+    }
+    
     
     //MARK: для парсинга через Json decode
         
@@ -132,6 +161,40 @@ static let shared = Model()
         //     print("\(UserDefaults.standard.bool(forKey: "showAdv"))")
              return (UserDefaults.standard.bool(forKey: "loginValue"))
              
+         }
+    
+    func setSettingsDiscountCartStatus(discountCart:String) {
+        UserDefaults.standard.set(discountCart, forKey: "discountCart" )
+        UserDefaults.standard.synchronize()
+        self.discountCart = discountCart
+    }
+    
+    func getSettingsDiscountCartStatus() -> (String) {//получаем настройки
+        //     print("\(UserDefaults.standard.bool(forKey: "showAdv"))")
+       // let disCart = UserDefaults.standard.string(forKey: "discountCart")
+        if (UserDefaults.standard.string(forKey: "discountCart") != nil) {
+            return UserDefaults.standard.string(forKey: "discountCart")!
+        } else {
+        return "xxxxxxxx"
+        }
+         }
+    
+    func setSettingsDiscountCartImg(discountCartImage:UIImage) {
+        let dataImageJPG = discountCartImage.jpegData(compressionQuality: 1.0)
+        UserDefaults().set(dataImageJPG, forKey: "discountCartImage")
+      //  UserDefaults.standard.set(discountCartImage, forKey: "discountCartImage" )
+       // UserDefaults.standard.synchronize()
+       // self.discountCart = discountCart
+    }
+    
+    func getSettingsDiscountCartImg() -> (UIImage) {//получаем настройки
+      
+        if (UserDefaults.standard.object(forKey: "discountCartImage") != nil) {
+            return UIImage(data: UserDefaults.standard.object(forKey: "discountCartImage") as! Data)!
+        } else {
+        return UIImage()
+        }
+        //let data = UserDefaults.standard.object(forKey: "discountCartImage") as! Data
          }
     
     
@@ -264,6 +327,296 @@ static let shared = Model()
            
            print("Send sms to Server")
        }
+    
+    func phoneRegister2(phoneNumber:String) {
+        //регистрация клиента
+        //register=y&register_phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4 : iPhone 12 Pro Max
+        
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+        
+        let dataToToket: String = deviceId + devicetypeUnicode
+        
+        let paramString = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        
+        let urlString :String = "https://dev1.avsila.ru/api/index.php?" + paramString
+        
+        let url = URL(string: urlString)!
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8)!)
+        }
+        task.resume()
+    }
+    
+    func phoneRegister3(phoneNumber:String) {
+        //регистрация через POST
+      
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+        
+        let dataToToket: String = deviceId + devicetypeUnicode
+    
+/*
+        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
+        // https://sms4b.ru/ws/sms.asmx/SendSMS
+        //POST /ws/sms.asmx/SendSMS HTTP/1.1
+        //Host: sms4b.ru
+        //Content-Type: application/x-www-form-urlencoded
+        //Content-Length: length
+        //
+        //Login=string&Password=string&Source=string&Phone=string&Text=string
+        
+        var request = URLRequest(url: url)
+    
+        request.httpMethod = "POST"
+    //    request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+       // request.addValue("sms4b.ru", forHTTPHeaderField: "Host")
+       // request.addValue("107", forHTTPHeaderField: "Content-Length")
+        
+        let parametrs = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        let httpBody = Data(parametrs.utf8)
+    
+          
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+   
+        //старая версия
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print("RESPONSE \(response)")
+                    //print("data: \(data!)") //данные есть надо разобрать
+                print(String(data: data!, encoding: .utf8)!)
+            } else {
+                print("ERROR !!- \(error?.localizedDescription)")
+            }
+        }.resume()*/
+        
+        let paramString = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        
+        let urlString :String = "https://dev1.avsila.ru/api/index.php?" + paramString
+        print(urlString)
+        
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        let postString = "postDataKey=value"
+        request.httpBody = postString.data(using: .utf8)
+        
+        
+        
+        guard let url = URL(string: urlString) else {return}
+                  
+                  let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    
+                      if error == nil {
+                        if data != nil {
+                            print("!!!!")
+                            print(String(data: data!, encoding: .utf8)!)
+                            print("!!!!")
+                               do {
+    
+                                let jsonResult = try JSONDecoder().decode(authResponse.self, from:data!)
+                                
+                                print("Токен:  \(jsonResult.token) \n Ошибка: \(jsonResult.error) \n Сообщение : \(jsonResult.message)")
+                               } catch {
+                                 //  print("Error ! \(error.localizedDescription)")
+                                print("Error ! \(error)")
+                               }
+                           }
+                      } else {
+                          print("Error when getJSON:\(error?.localizedDescription)")
+                      }
+                  }
+        task.resume()
+        
+        print("отправили запрос на сервер")
+        
+    }
+    
+    func phoneCheckCode2(phoneNumber:String, codeNumber:String) {
+        //регистрация клиента
+        //checkCode=2102&phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4 : iPhone 12 Pro Max
+        
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+        
+        let dataToToket: String = deviceId + devicetypeUnicode
+        
+        let paramString = "checkCode=" + codeNumber + "&phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        
+        let urlString :String = "https://dev1.avsila.ru/api/index.php?" + paramString
+        
+        let url = URL(string: urlString)!
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8)!)
+        }
+        task.resume()
+    }
+    
+    
+    
+    func phoneAuth2() {
+       /* let registerphone: String = "79304206601"
+        let deviceid: String = "8a08dca22a581b0b"
+        let devicetype:String = "iPhone13,4 : iPhone 12 Pro Max"
+        let token :String = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMTY1OCwiZXhwIjoxNjExMTQwOTAwfQ==.9ad4e74b7843c6162f6360b157eccb32a907b5df530517fb2444d27c06d8e16cb69f9bdb1e5c95372a16f734a0c85760"
+    */
+        
+        //devicetype переводим в Unicode
+      //  var dataenc = devicetype.data(using: String.Encoding.nonLossyASCII)
+      //  var devicetypeUnicode: String = String(data: dataenc!, encoding: String.Encoding.utf8)!
+        
+        //let str = String(UTF8String: devicetype.cStringUsingEncoding(​NSUTF8StringEncoding))
+       // let str = String(UTF8String: devicetype.cStringUsingEncoding(.utf8))
+        
+        //let str = String(utf8String: devicetype.cString(using: .utf8))
+        
+        
+      //регулярное выражение
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+        
+        let dataToToket: String = deviceId + devicetypeUnicode
+        guard let data = dataToToket.data(using: .utf8) else { return }
+            let digest = SHA384.hash(data: data)
+        
+          ///  print(digest.data) // 64 bytes
+        print(digest.map { String(format: "%02X", $0) }.joined())
+        
+        
+        let paramString = "/api/index.php?" + "phone=" + registerphone + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode + "&token=" + token
+        //https://dev1.avsila.ru/api/index.php?phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4%20:%20iPhone%2012%20Pro%20Max&token=eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMTY1OCwiZXhwIjoxNjExMTQwOTAwfQ==.9ad4e74b7843c6162f6360b157eccb32a907b5df530517fb2444d27c06d8e16cb69f9bdb1e5c95372a16f734a0c85760
+        
+        
+        let urlString :String = "https://dev1.avsila.ru" + paramString
+       
+        print(urlString)
+        
+        let url = URL(string: urlString)!
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8)!)
+        }
+
+        task.resume()
+    }
+    
+    
+    func phoneAuth(code: Int) {
+        print(code)
+        let url = URL(string: "https://dev1.avsila.ru")!
+        switch code {
+        case 1:
+            print("1!")
+            let url = URL(string: "https://dev1.avsila.ru/api/index.php?phone=79304206603")!
+        case 2:
+            print("2!")
+            let url = URL(string: "https://dev1.avsila.ru/api/index.php?orders=y")!
+        default:
+            print("3!")
+            let url = URL(string: "https://dev1.avsila.ru/api/index.php?logout=y")!
+        }
+    
+        /*
+        https://dev1.avsila.ru/api/index.php?phone=79304206601 , параметр только phone , авторизация происходит если есть номер телефона в этой таблице https://dev1.avsila.ru/bitrix/admin/perfmon_table.php?lang=ru&table_name=b_user_phone_auth
+        Регистрация
+        https://dev1.avsila.ru/api/index.php?register=y&register_phone=79304206603
+        */
+        
+        /////----------
+        
+        //let url = URL(string: "https://dev1.avsila.ru/api/index.php?phone=79304206601&orders=y")!
+     
+        
+         //let url = URL(string: "https://dev1.avsila.ru/api/index.php?phone=79304206603")! // залогиниться//
+        //let url = URL(string: "https://dev1.avsila.ru/api/index.php?orders=y")! // -статус
+      //  let url = URL(string: "https://dev1.avsila.ru/api/index.php?logout=y")!
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8)!)
+        }
+
+        task.resume()
+        
+        ///-------
+        
+        /*
+        var strURL = "https://dev1.avsila.ru/api/index.php?phone=79304206601"
+        
+        let url = URL(string: strURL)
+        
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            
+            if error == nil {
+                let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/auth.json"
+                
+                let urlForSave = URL(fileURLWithPath: path)
+                
+                do{
+                    try data?.write(to: urlForSave)
+                    //print(path)
+                    print("Файл загружен")
+                    //self.parseJSON() //парсим XML сразу после загрузки
+                } catch {
+                    print("Error when save \(error.localizedDescription)")
+                }
+                
+            } else {
+                //  print("Error when ladXMLFile:"+error.localizedDescription)
+                print("Error when ladJSONFile:\(error?.localizedDescription)")
+            }
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startLoadingJSON"), object: self)
+        task.resume() //запуск УРЛ сессии
+        
+        */
+      //  guard let url = URL(string: "https://dev1.avsila.ru/api/index.php?phone=79304206601") else { return }
+        // https://sms4b.ru/ws/sms.asmx/SendSMS
+        //POST /ws/sms.asmx/SendSMS HTTP/1.1
+        //Host: sms4b.ru
+        //Content-Type: application/x-www-form-urlencoded
+        //Content-Length: length
+        //
+        //Login=string&Password=string&Source=string&Phone=string&Text=string
+        
+        //   var request = URLRequest(url: url)
+    
+    /*
+        request.httpMethod = "POST"
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.addValue("sms4b.ru", forHTTPHeaderField: "Host")
+        request.addValue("107", forHTTPHeaderField: "Content-Length")
+        */
+     //   let parametrs = "Login=avtosila&Password=silaavto&Source=Avtosila&Phone=89056580157&Text=\(code)"
+      //  let httpBody = Data(parametrs.utf8)
+        
+      //  guard let httpBody = try? JSONSerialization.data(withJSONObject: parametrs, options: []) else { return }
+ //       guard let httpBody = try? JSONSerialization.jsonObject(with: parametrs, options: []) as? [String:AnyObject]  else { return }
+          
+       // request.httpBody = httpBody
+        /*
+        let session = URLSession.shared
+        // отправляем на сервер
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print("RESPONSE \(response)")
+            } else {
+                print("ERROR !!- \(error?.localizedDescription)")
+            }
+        }.resume()
+        
+        print("!-!-!")*/
+    }
+    
     
     func getBrandsViaArticle(code: String) {
          //MARK: новая версия парсинга JSON без сохранения файла и с decode (смотри struct) бренды по артикулу
