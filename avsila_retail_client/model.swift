@@ -76,7 +76,7 @@ class Model: NSObject {
     let registerphone: String = "79056580157"
     // let deviceid: String = "8a08dca22a581b0b"
     //  let devicetype:String = "iPhone13,4%20:%20iPhone%2012%20Pro%20Max"
-    let deviceId: String  = UIDevice.current.identifierForVendor!.uuidString
+  //  let deviceId: String  = UIDevice.current.identifierForVendor!.uuidString
  
     var devicetype = UIDevice.current.name
     let token :String = "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyMTY1OCwiZXhwIjoxNjExMTQwOTAwfQ==.9ad4e74b7843c6162f6360b157eccb32a907b5df530517fb2444d27c06d8e16cb69f9bdb1e5c95372a16f734a0c85760"
@@ -87,11 +87,12 @@ class Model: NSObject {
     let customerId: String = "0f352dbd-e0de-11e8-bf31-001517990cd9"
    // let token: String = "7f72a68144bd55c71f2a066c2f9a43c2ef3240f7d1628ec43916bb1c31ceae71"
     let login: String = "tesst"
-    
+    var persolaProfileDataArray = [String]()
     
     
     
 static let shared = Model()
+    let deviceId: String  = UIDevice.current.identifierForVendor!.uuidString
     
     struct albums {
         var collectionName: String //new
@@ -111,6 +112,22 @@ static let shared = Model()
         var message: String?
     }
     
+    
+    struct persDataResponse: Codable {
+        var token: String?
+        var error: Bool
+        var message: String?
+        var user_data: userData
+    }
+    
+    struct userData: Codable {
+        var id: String?
+        var login: String?
+        var email: String?
+        var phone: String?
+        var name: String?
+        var last_name: String?
+    }
     
     //MARK: для парсинга через Json decode
         
@@ -153,15 +170,43 @@ static let shared = Model()
        
     func setSettingsLoginStatus(loginValue:Bool) {
         UserDefaults.standard.set(loginValue, forKey: "loginValue" )
+        if loginValue == false {
+            UserDefaults.standard.set("", forKey: "token")
+        }
         UserDefaults.standard.synchronize()
         self.loginValue = loginValue
     }
     
     func getSettings() -> (Bool) {//получаем настройки
         //     print("\(UserDefaults.standard.bool(forKey: "showAdv"))")
-             return (UserDefaults.standard.bool(forKey: "loginValue"))
-             
+        print("Авторизация: \(UserDefaults.standard.bool(forKey: "loginValue"))")
+        print("Телефон: \(UserDefaults.standard.string(forKey: "phone"))")
+        print("Токен: \(UserDefaults.standard.string(forKey: "token"))")
+        
+        if UserDefaults.standard.bool(forKey: "loginValue") && (UserDefaults.standard.string(forKey: "token") != nil){
+                return (UserDefaults.standard.bool(forKey: "loginValue"))
+        }
+        return false
          }
+    
+    func setToken(token: String) {
+        UserDefaults.standard.set(token, forKey: "token")
+        UserDefaults.standard.synchronize()
+    }
+    
+    public func getToken()->String {
+        return (UserDefaults.standard.string(forKey: "token")!)
+    }
+    
+    func setPhone(phone: String) {
+        UserDefaults.standard.set(phone, forKey: "phone")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func getPhone()->String {
+        return (UserDefaults.standard.string(forKey: "phone") ?? "")
+    }
+    
     
     func setSettingsDiscountCartStatus(discountCart:String) {
         UserDefaults.standard.set(discountCart, forKey: "discountCart" )
@@ -352,15 +397,21 @@ static let shared = Model()
     }
     
     func phoneRegister3(phoneNumber:String) {
-        //регистрация через POST
-      
+        //регистрация клиента через POST
+        //регистрация клиента
+        //register=y&register_phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4 : iPhone 12 Pro Max
+        
         let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
                                                 with: "%20",
                                                 options: [.regularExpression])
         
         let dataToToket: String = deviceId + devicetypeUnicode
     
+        
+        
 /*
+         
+         
         guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
         // https://sms4b.ru/ws/sms.asmx/SendSMS
         //POST /ws/sms.asmx/SendSMS HTTP/1.1
@@ -415,14 +466,16 @@ static let shared = Model()
                     
                       if error == nil {
                         if data != nil {
-                            print("!!!!")
+                            print("////\\\\")
                             print(String(data: data!, encoding: .utf8)!)
-                            print("!!!!")
+                            print("/////\\\\")
                                do {
     
                                 let jsonResult = try JSONDecoder().decode(authResponse.self, from:data!)
                                 
                                 print("Токен:  \(jsonResult.token) \n Ошибка: \(jsonResult.error) \n Сообщение : \(jsonResult.message)")
+                             //   self.setToken(token: jsonResult.token!)
+                             //token пришел пустой
                                } catch {
                                  //  print("Error ! \(error.localizedDescription)")
                                 print("Error ! \(error)")
@@ -432,6 +485,253 @@ static let shared = Model()
                           print("Error when getJSON:\(error?.localizedDescription)")
                       }
                   }
+        task.resume()
+        
+        print("отправили запрос на сервер")
+        
+    }
+    
+    func phoneCheckCode3(phoneNumber:String, codeNumber:String) {
+        var status = Int()
+        //отправка кода в ответ на смсчерез POST
+        //register=y&register_phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4 : iPhone 12 Pro Max
+        
+        //замещаем пробелы в названии модели телефона
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+        
+        let dataToToket: String = deviceId + devicetypeUnicode
+    
+        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let parametrs = "checkCode=" + codeNumber + "&phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        let httpBody = Data(parametrs.utf8)
+        request.httpBody = httpBody
+        
+        //guard let url = URL(string: urlString) else {return}
+                  
+                  let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    
+                      if error == nil {
+                        if data != nil {
+                            print("!!!!")
+                            print(String(data: data!, encoding: .utf8)!)
+                            print("!!!!")
+                               do {
+    
+                                let jsonResult = try JSONDecoder().decode(authResponse.self, from:data!)
+                                
+                                print("Токен:  \(jsonResult.token) \n Ошибка: \(jsonResult.error) \n Сообщение : \(jsonResult.message)")
+                                if (jsonResult.token != nil) && (jsonResult.token != "") {
+                                    self.setToken(token: jsonResult.token!)
+                                    status = 1
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "codesuccess"), object: self)
+                                } else {
+                                    status = 0
+                                }
+                                
+                                print("status in model 1 \(status)")
+                             //token пришел пустой
+                               } catch {
+                                 //  print("Error ! \(error.localizedDescription)")
+                                print("Error ! \(error)")
+                                status = 0
+                               }
+                           }
+                      } else {
+                          print("Error when getJSON:\(error?.localizedDescription)")
+                        status = 0
+                      }
+                  }
+        task.resume()
+        
+        print("отправили запрос с кодом на сервер")
+        print("status in model 2 \(status)")
+    }
+    
+    
+//    func getPersonalData3() {
+//        //получение данных о клиенте через POST
+//
+//        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+//                                                with: "%20",
+//                                                options: [.regularExpression])
+//
+//        let phoneNumber = getPhone()
+//
+//        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//
+//        //let parametrs = "phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode + "&token=" + getToken()
+//
+//        let parametrs = "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode + "&token=" + getToken()
+//
+//        let httpBody = Data(parametrs.utf8)
+//        request.httpBody = httpBody
+//
+//        let task = URLSession.shared.dataTask(with: request) { [self] (data, response, error) in
+//
+//                      if error == nil {
+//                        if data != nil {
+//                            print("////\\\\")
+//                            print(String(data: data!, encoding: .utf8)!)
+//                            print("/////\\\\")
+//                               do {
+//
+//                                let jsonResult = try JSONDecoder().decode(persDataResponse.self, from:data!)
+//
+//                                if jsonResult.user_data != nil {
+//                                print("Id:  \(jsonResult.user_data.id) \n login: \(jsonResult.user_data.login) \n email : \(jsonResult.user_data.email) \n phone: \(jsonResult.user_data.phone) \n name: \(jsonResult.user_data.name) \n last_name: \(jsonResult.user_data.last_name)")
+//                                self.persolaProfileDataArray = [String]()
+//
+//
+//                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.id!))
+//                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.login!))
+//                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.email!))
+//                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.phone!))
+//                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.name!))
+//                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.last_name!))
+//                                }
+//
+//                               } catch {
+//                                 //  print("Error ! \(error.localizedDescription)")
+//                                print("Error ! \(error)")
+//                               }
+//                           }
+//                      } else {
+//                          print("Error when getJSON:\(error?.localizedDescription)")
+//                      }
+//
+//                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "personalDataRefresh"), object: self)
+//                  }
+//
+//        task.resume()
+//
+//        print("отправили запрос на сервер")
+//
+//    }
+    
+    
+    func authLoginName3(usernameEmail:String, password:String) {
+        //авторизация клиента через POST
+        //авторизация по логину
+        //auth=y&login=pmb&password=%26wF2zXRTOdJL&phone=+7%20(930)%20420-66-01&device_id=8a08dca22a581b0b&device_type=iPhone13,4%20:%20iPhone%2012%20Pro%20Max
+        
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+        
+        let dataToToket: String = deviceId + devicetypeUnicode
+     
+        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let parametrs = "auth=y&login=" + usernameEmail + "&password=" + password + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
+        
+        print("параметры\(parametrs)")
+        let httpBody = Data(parametrs.utf8)
+        request.httpBody = httpBody
+        
+        //guard let url = URL(string: urlString) else {return}
+                  
+                  let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    
+                      if error == nil {
+                        if data != nil {
+                            print("////LogIn\\\\")
+                            print(String(data: data!, encoding: .utf8)!)
+                            print("/////\\\\")
+                               do {
+    
+                                let jsonResult = try JSONDecoder().decode(authResponse.self, from:data!)
+                                if jsonResult.error == false {
+                                    self.setToken(token: jsonResult.token!)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "authLoginRefresh"), object: self)
+                                    print("Токен:  \(jsonResult.token) \n Ошибка: \(jsonResult.error) \n Сообщение : \(jsonResult.message)")
+                                } else {
+                                    print("Ошибка: \(jsonResult.error)")
+                                    print(String(jsonResult.message!))
+                                }
+                             //token пришел пустой
+                               } catch {
+                                 //  print("Error ! \(error.localizedDescription)")
+                                print("Error ! \(error)")
+                               // print(jsonResult.message.UTF8String)
+                               }
+                           }
+                      } else {
+                          print("Error when getJSON:\(error?.localizedDescription)")
+                      }
+                  }
+        task.resume()
+        
+        print("отправили запрос на сервер")
+        
+    }
+    
+    func getCardInformation3(cardCode: String) {
+        //получение данных о клиенте через POST
+         
+        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
+                                                with: "%20",
+                                                options: [.regularExpression])
+
+        let phoneNumber = getPhone()
+        print("Тел: \(phoneNumber)")
+      
+        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        //let parametrs = "phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode + "&token=" + getToken()
+        
+        let parametrs = "card_code=" + cardCode + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode + "&token=" + getToken()
+        print(parametrs)
+        
+        let httpBody = Data(parametrs.utf8)
+        request.httpBody = httpBody
+                  
+        let task = URLSession.shared.dataTask(with: request) { [self] (data, response, error) in
+                    
+                      if error == nil {
+                        if data != nil {
+                            print("!!!!!!!!!!")
+                            print(String(data: data!, encoding: .utf8)!)
+                            print("/////\\\\")
+                               do {
+    
+                                let jsonResult = try JSONDecoder().decode(persDataResponse.self, from:data!)
+                                
+                                if jsonResult.user_data != nil {
+                                    /*
+                                print("Id:  \(jsonResult.user_data.id) \n login: \(jsonResult.user_data.login) \n email : \(jsonResult.user_data.email) \n phone: \(jsonResult.user_data.phone) \n name: \(jsonResult.user_data.name) \n last_name: \(jsonResult.user_data.last_name)")
+                                self.persolaProfileDataArray = [String]()
+                                
+                               
+                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.id!))
+                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.login!))
+                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.email!))
+                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.phone!))
+                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.name!))
+                                    self.persolaProfileDataArray.append(String(jsonResult.user_data.last_name!))*/
+                                    jsonResult.user_data.login
+                                }
+                                
+                               } catch {
+                                 //  print("Error ! \(error.localizedDescription)")
+                                print("Error ! \(error)")
+                               }
+                           }
+                      } else {
+                          print("Error when getJSON:\(error?.localizedDescription)")
+                      }
+                    //нотификация что данные загружены
+                   //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "personalDataRefresh"), object: self)
+                  }
+        
         task.resume()
         
         print("отправили запрос на сервер")

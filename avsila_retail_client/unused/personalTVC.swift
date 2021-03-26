@@ -16,7 +16,9 @@ class personalTVC: UITableViewController {
         //MARK: запустить controller с входом
         Model.shared.loginValue = false
         Model.shared.setSettingsLoginStatus(loginValue:false)
-        Model.shared.setSettingsDiscountCartStatus(discountCart: "xxxxxxxx") 
+        Model.shared.setSettingsDiscountCartStatus(discountCart: "xxxxxxxx")
+        Model.shared.setPhone(phone: "")
+        Model.shared.setToken(token: "")
         self.dismiss(animated: true, completion: nil)
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
@@ -29,7 +31,10 @@ class personalTVC: UITableViewController {
         Model.shared.setSettingsLoginStatus(loginValue:false)*/
     }
     
-    
+//    @IBAction func getPersData(_ sender: Any) {
+//        Model.shared.getPersonalData3()
+//    }
+//    
     @IBAction func saveBtnAction(_ sender: Any) {
            self.dismiss(animated: true, completion: nil)
           // self.presentationMode.wrappedValue.dismiss()

@@ -96,6 +96,21 @@ class AddCartViewController: UIViewController {
         return button
        }()
     
+    private let buttonRequestData: UIButton = {
+        let button = UIButton()
+        button.setTitle("Запрос", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        //button.setImage(UIImage(systemName: "barcode"), for: .normal)
+        button.tintColor = .systemBlue
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        //button.backgroundColor = .systemBlue
+        button.addTarget(self, action: #selector(didTapRequestData), for: .touchUpInside)
+        return button
+       }()
+    
     private let switchBarCodeTypeLabel: UILabel = {
         let label = UILabel()
         label.text = "Code128/Code39"
@@ -163,6 +178,14 @@ class AddCartViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    @objc func didTapRequestData() {
+        if textFieldCartNumber.text != nil {
+            Model.shared.getCardInformation3(cardCode: textFieldCartNumber.text! )
+        }
+        print("tapped request")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldCartNumber.delegate = self
@@ -176,6 +199,7 @@ class AddCartViewController: UIViewController {
         view.addSubview(switchBarCodeType)
         switchBarCodeType.setOn(true, animated: true)
         view.addSubview(buttonGenerateBarCode)
+        view.addSubview(buttonRequestData)
         view.addSubview(barCodeImageView)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "getdiscountcartnumber"), object: nil, queue: nil) { (notification) in
@@ -271,12 +295,16 @@ class AddCartViewController: UIViewController {
                                              y: buttonNext.frame.origin.y + buttonNext.frame.height+10,
                                              width: view.layer.frame.width - 20, height: 30)
         
+        buttonRequestData.frame = CGRect (x:10,
+                                         y: buttonGenerateBarCode.frame.origin.y + buttonGenerateBarCode.frame.height+5,
+                                         width: view.layer.frame.width - 20,
+                                         height: 30)
+        
         let size = view.frame.width / 3 * 2
         barCodeImageView.frame = CGRect(x: view.frame.width/2-(size/2),
-                                        y: buttonGenerateBarCode.frame.origin.y + buttonGenerateBarCode.frame.height + 10,
+                                        y: buttonGenerateBarCode.frame.origin.y + buttonGenerateBarCode.frame.height + 40,
                                         width: size,
                                         height: size/2)
-  
     }
 
 }

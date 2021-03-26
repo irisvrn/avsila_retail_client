@@ -36,7 +36,7 @@ class HomeDiscountCartLoggedOffTableViewCell: UITableViewCell {
             label.numberOfLines = 0
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20, weight: .medium)
-            label.text = "Карта Автосила всегда с вами в телефоне"
+            label.text = "Дисконтная карта Автосила всегда с вами в телефоне"
             return label
         }()
         

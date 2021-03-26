@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
             button.layer.cornerRadius = Constants.cornerRadius
             button.backgroundColor = .systemBlue
             button.setTitleColor(.white, for: .normal)
-        //    button.addTarget(self, action: #selector (didTapLoginButton), for: .touchUpInside)
+            button.addTarget(self, action: #selector (didTapLoginButton), for: .touchUpInside)
             return button
            }()
         
@@ -112,7 +112,33 @@ class LoginViewController: UIViewController {
             passwordField.delegate = self
             addSubviews()
             view.backgroundColor = .systemBackground
-            // Do any additional setup after loading the view.
+            
+            NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "authLoginRefresh"), object: nil, queue: nil) { (notification) in
+                
+                
+                
+                DispatchQueue.main.sync {
+                    
+                    Model.shared.loginValue = true
+                    Model.shared.setSettingsLoginStatus(loginValue:true)
+                   // print("Номер телефона \(phone)")
+                   // Model.shared.setPhone(phone: phone)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+                    Model.shared.loginType = 0
+                    self.navigationController?.popToRootViewController(animated: true)
+                    
+                    /*
+                    let message = UIAlertController(title: "Вы зарегистрировались ", message: "Token \(Model.shared.getToken())", preferredStyle: .alert)
+                      let act = UIAlertAction(title: "ok", style: .default, handler: nil)
+                      message.addAction(act)
+                    self.present(message, animated: true, completion: nil)
+                     */
+                    
+               }
+               
+            }
+            
+            
         }
         
         override func viewDidLayoutSubviews() {
@@ -226,11 +252,20 @@ class LoginViewController: UIViewController {
             }
               print("here \(email)")
             
+            // MARК: здесь запрос к серверу на проверку логина и пароля
+            
+            Model.shared.authLoginName3(usernameEmail:usernameEmail, password:password)
+            
+            /*
             if usernameEmail == "ied" && password == "hornetf18" {
+                
+                
                 Model.shared.loginValue = true
                 Model.shared.setSettingsLoginStatus(loginValue:true)
                 print("We are here")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+                
+                
                 if Model.shared.loginType == 1 {
                     Model.shared.loginType = 0
                     self.navigationController?.popViewController(animated: true)
@@ -240,12 +275,7 @@ class LoginViewController: UIViewController {
                     let vcc = AddCartViewController()
                     navigationController?.pushViewController(vcc, animated: true)
                 }
-                /*
-                let mainPage = self.storyboard?.instantiateViewController(identifier: "tabViewCont") as! UITabBarController
-                 let appDelegate = UIApplication.shared.delegate
-                 appDelegate?.window??.rootViewController = mainPage
-                */
-                //
+           
                 
             } else {
                 let message = UIAlertController(title: "Неправильный логин или пароль", message: "Восстановить пароль можно на сайте avsila.ru или войти по СМС", preferredStyle: .alert)
@@ -253,7 +283,7 @@ class LoginViewController: UIViewController {
                       message.addAction(act)
                       present(message, animated: true, completion: nil)
             }
-            
+            */
             
             /*
             AuthManager.shared.liginUser(username: username, email: email, password: password) {success in

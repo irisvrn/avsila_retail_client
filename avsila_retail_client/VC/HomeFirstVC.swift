@@ -55,12 +55,57 @@ class HomeFirstVC: UIViewController {
         //    }
             print("table refreshed")
         }
+        
+        fetchDataDiscountCard() // Получаем данные по дисконтной карте
+     //   fetchDataPersonalData() //Получаем информацию о пользователе
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
+    
+    
+    private func fetchDataDiscountCard() {
+        
+        //Featured Playlists
+        //Recommended Tracks
+        //New Releases
+        
+        
+        ApiCaller.shared.getDiscountCardVolume { (result) in
+            switch result {
+            case .success(let model) : break
+                print(result)
+//                let genres = model.genres
+//                var seeds = Set<String>()
+//                while seeds.count < 5 {
+//                    if let random = genres.randomElement() {
+//                        seeds.insert(random)
+//                    }
+//                }
+//
+//                APICaller.shared.getRecommendations(genres: seeds) { (_) in
+//
+//                }
+            case .failure(let error) : break
+                print(error)
+            }
+        }
+//        APICaller.shared.getFeaturedPlaylists { (result) in
+//            switch result {
+//            case .success(let model) : break
+//            case .failure(let error) : break
+//            }
+//        }
+//        APICaller.shared.getNewReleses { (result) in
+//            switch result {
+//            case .success(let model): break
+//            case .failure(let error): break
+//            }
+//        }
+    }
+    
     
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"),
@@ -69,11 +114,19 @@ class HomeFirstVC: UIViewController {
                                                             action: #selector(didTapSettingsButton))
     }
 
+    
+    
    @objc func didTapSettingsButton() {
     
     if Model.shared.loginValue == true {
-        let registerViewController = self.storyboard?.instantiateViewController(identifier: "personalTVC") as! personalTVC
-        self.present(registerViewController, animated: true, completion: nil)
+       /* let registerViewController = self.storyboard?.instantiateViewController(identifier: "personalTVC") as! personalTVC
+        self.present(registerViewController, animated: true, completion: nil)*/
+        let vc = PersonalPropfileVC()
+        vc.title = "Личный кабинет"
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
+        
     } else {
         Model.shared.loginType = 1
         let vc = LoginViewController()
@@ -90,6 +143,7 @@ class HomeFirstVC: UIViewController {
     
 
 }
+
 
 
 

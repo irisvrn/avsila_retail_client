@@ -28,6 +28,8 @@
 		4473138425A0B4A200871884 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4473138325A0B4A200871884 /* LoginViewController.swift */; };
 		4473138825A0C8B700871884 /* LoginSMSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4473138725A0C8B700871884 /* LoginSMSViewController.swift */; };
 		448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448BF42F242F5C9E00993748 /* searchTableViewCell.swift */; };
+		4498269D25FCD4B300BAEBD8 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4498269C25FCD4B300BAEBD8 /* ApiCaller.swift */; };
+		449826A025FCD64A00BAEBD8 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4498269F25FCD64A00BAEBD8 /* AuthManager.swift */; };
 		44B016C82580F89C00ECCE21 /* AddCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B016C72580F89C00ECCE21 /* AddCartViewController.swift */; };
 		44B016CA2585627600ECCE21 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B016C92585627600ECCE21 /* ScannerViewController.swift */; };
 		44B074A123F6C4B6001F2C16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074A023F6C4B6001F2C16 /* AppDelegate.swift */; };
@@ -38,6 +40,11 @@
 		44B074B523F803EB001F2C16 /* firstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B423F803EB001F2C16 /* firstScreen.swift */; };
 		44B074B723F80545001F2C16 /* personalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B623F80545001F2C16 /* personalTVC.swift */; };
 		44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B823F80B34001F2C16 /* garageStackView.swift */; };
+		44C9EAB425FCE97C00ECF2A4 /* DiscountCardVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9EAB325FCE97C00ECF2A4 /* DiscountCardVolume.swift */; };
+		44C9EAB925FD20C200ECF2A4 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9EAB825FD20C200ECF2A4 /* PersonalData.swift */; };
+		44D9987C25E63F5E001C5FD2 /* PersonalPropfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D9987B25E63F5E001C5FD2 /* PersonalPropfileVC.swift */; };
+		44D9987F25E64072001C5FD2 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D9987E25E64072001C5FD2 /* FormTableViewCell.swift */; };
+		44D9988225E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D9988125E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift */; };
 		44EE389423F978F5004567D0 /* logoavsila.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 44EE389323F978F5004567D0 /* logoavsila.jpg */; };
 		44EE389623F97A6F004567D0 /* shopsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE389523F97A6F004567D0 /* shopsVC.swift */; };
 		44EE389823F980D8004567D0 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE389723F980D8004567D0 /* model.swift */; };
@@ -66,6 +73,8 @@
 		4473138325A0B4A200871884 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4473138725A0C8B700871884 /* LoginSMSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSMSViewController.swift; sourceTree = "<group>"; };
 		448BF42F242F5C9E00993748 /* searchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchTableViewCell.swift; sourceTree = "<group>"; };
+		4498269C25FCD4B300BAEBD8 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
+		4498269F25FCD64A00BAEBD8 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		44B016C72580F89C00ECCE21 /* AddCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCartViewController.swift; sourceTree = "<group>"; };
 		44B016C92585627600ECCE21 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		44B0749D23F6C4B6001F2C16 /* avsila лояльность.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "avsila лояльность.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +87,11 @@
 		44B074B423F803EB001F2C16 /* firstScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstScreen.swift; sourceTree = "<group>"; };
 		44B074B623F80545001F2C16 /* personalTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = personalTVC.swift; sourceTree = "<group>"; };
 		44B074B823F80B34001F2C16 /* garageStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = garageStackView.swift; sourceTree = "<group>"; };
+		44C9EAB325FCE97C00ECF2A4 /* DiscountCardVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCardVolume.swift; sourceTree = "<group>"; };
+		44C9EAB825FD20C200ECF2A4 /* PersonalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalData.swift; sourceTree = "<group>"; };
+		44D9987B25E63F5E001C5FD2 /* PersonalPropfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPropfileVC.swift; sourceTree = "<group>"; };
+		44D9987E25E64072001C5FD2 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
+		44D9988125E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalProfileButtonViewCell.swift; sourceTree = "<group>"; };
 		44EE389323F978F5004567D0 /* logoavsila.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoavsila.jpg; sourceTree = "<group>"; };
 		44EE389523F97A6F004567D0 /* shopsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shopsVC.swift; sourceTree = "<group>"; };
 		44EE389723F980D8004567D0 /* model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
@@ -100,7 +114,9 @@
 			children = (
 				44731357258B89D400871884 /* Home Feed Cells */,
 				4439563524C631900005B542 /* CollectionViewCell.swift */,
+				44D9988125E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift */,
 				4439565924D1B1AA0005B542 /* STOCollectionViewCell.swift */,
+				44D9987E25E64072001C5FD2 /* FormTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -154,10 +170,20 @@
 			path = Blog;
 			sourceTree = "<group>";
 		};
+		4498269B25FCD48600BAEBD8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				4498269C25FCD4B300BAEBD8 /* ApiCaller.swift */,
+				4498269F25FCD64A00BAEBD8 /* AuthManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		44B016C62580F86F00ECCE21 /* VC */ = {
 			isa = PBXGroup;
 			children = (
 				44731354258B7F3D00871884 /* HomeFirstVC.swift */,
+				44D9987B25E63F5E001C5FD2 /* PersonalPropfileVC.swift */,
 				44B016C72580F89C00ECCE21 /* AddCartViewController.swift */,
 				44B016C92585627600ECCE21 /* ScannerViewController.swift */,
 				447313802598D18000871884 /* ScannerViewController2.swift */,
@@ -187,18 +213,20 @@
 		44B0749F23F6C4B6001F2C16 /* avsila_retail_client */ = {
 			isa = PBXGroup;
 			children = (
+				44C9EAB225FCE96400ECF2A4 /* Models */,
+				4498269B25FCD48600BAEBD8 /* Managers */,
 				443609E3258A35E10041AF45 /* Cells */,
 				44B016C62580F86F00ECCE21 /* VC */,
-				44EE389723F980D8004567D0 /* model.swift */,
+				44D998EA25EFB980001C5FD2 /* unused */,
 				44B074A023F6C4B6001F2C16 /* AppDelegate.swift */,
+				44EE389723F980D8004567D0 /* model.swift */,
+				4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */,
 				44B074A423F6C4B6001F2C16 /* ViewController.swift */,
 				44B074B823F80B34001F2C16 /* garageStackView.swift */,
-				44B074B623F80545001F2C16 /* personalTVC.swift */,
 				44EE38992401B335004567D0 /* SearchVC.swift */,
 				448BF42F242F5C9E00993748 /* searchTableViewCell.swift */,
 				44B074B423F803EB001F2C16 /* firstScreen.swift */,
 				4414B5D92415864A0044AD0D /* fLoginVC.swift */,
-				4414B5FD241D7DD70044AD0D /* logInSMSTVC.swift */,
 				44EE389523F97A6F004567D0 /* shopsVC.swift */,
 				4439565724D05DD90005B542 /* STOVC.swift */,
 				44B074A923F6C4BC001F2C16 /* Assets.xcassets */,
@@ -208,6 +236,23 @@
 				44B074AE23F6C4BC001F2C16 /* Info.plist */,
 			);
 			path = avsila_retail_client;
+			sourceTree = "<group>";
+		};
+		44C9EAB225FCE96400ECF2A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				44C9EAB325FCE97C00ECF2A4 /* DiscountCardVolume.swift */,
+				44C9EAB825FD20C200ECF2A4 /* PersonalData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		44D998EA25EFB980001C5FD2 /* unused */ = {
+			isa = PBXGroup;
+			children = (
+				44B074B623F80545001F2C16 /* personalTVC.swift */,
+			);
+			path = unused;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,14 +328,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				44B074B523F803EB001F2C16 /* firstScreen.swift in Sources */,
+				449826A025FCD64A00BAEBD8 /* AuthManager.swift in Sources */,
 				447313812598D18100871884 /* ScannerViewController2.swift in Sources */,
+				44C9EAB925FD20C200ECF2A4 /* PersonalData.swift in Sources */,
 				44B074A523F6C4B6001F2C16 /* ViewController.swift in Sources */,
+				44C9EAB425FCE97C00ECF2A4 /* DiscountCardVolume.swift in Sources */,
 				4439565824D05DD90005B542 /* STOVC.swift in Sources */,
+				44D9987F25E64072001C5FD2 /* FormTableViewCell.swift in Sources */,
 				44731365258CC6E100871884 /* HomeDiscountCartFourthTableViewCell.swift in Sources */,
 				4439563624C631900005B542 /* CollectionViewCell.swift in Sources */,
 				44B016C82580F89C00ECCE21 /* AddCartViewController.swift in Sources */,
 				4473137B2591E81F00871884 /* BlogSecondTableViewCell.swift in Sources */,
+				4498269D25FCD4B300BAEBD8 /* ApiCaller.swift in Sources */,
 				44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */,
+				44D9988225E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift in Sources */,
 				44731368258E93BB00871884 /* HomeDiscountCartLoggedOffTableViewCell.swift in Sources */,
 				44EE389A2401B335004567D0 /* SearchVC.swift in Sources */,
 				4473138825A0C8B700871884 /* LoginSMSViewController.swift in Sources */,
@@ -299,6 +350,7 @@
 				44EE389623F97A6F004567D0 /* shopsVC.swift in Sources */,
 				4414B5DA2415864A0044AD0D /* fLoginVC.swift in Sources */,
 				4473137E2594EFE600871884 /* WebMoreInfoViewController.swift in Sources */,
+				44D9987C25E63F5E001C5FD2 /* PersonalPropfileVC.swift in Sources */,
 				448BF430242F5C9E00993748 /* searchTableViewCell.swift in Sources */,
 				4473136C2590C85000871884 /* ServiceFirstTableViewCell.swift in Sources */,
 				4473138425A0B4A200871884 /* LoginViewController.swift in Sources */,

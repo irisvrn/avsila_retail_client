@@ -104,7 +104,7 @@ class LoginSMSViewController: UIViewController {
     
     private let checkPhoneButtonSt: UIButton = {
         let button = UIButton()
-        button.setTitle("reg", for: .normal)
+        button.setTitle("getData", for: .normal)
         button.setTitleColor(.systemGreen, for: .normal)
        // button.isEnabled = false
         button.addTarget(self, action: #selector(checkPhoneSt), for: .touchUpInside)
@@ -196,19 +196,24 @@ class LoginSMSViewController: UIViewController {
     
     @objc func checkPhoneIn() {
         
-          //  Model.shared.phoneAuth(code: 1)
-        Model.shared.phoneAuth2()
+        Model.shared.loginValue = true
+        Model.shared.setSettingsLoginStatus(loginValue:true)
+        print("Номер телефона \(phone)")
+        Model.shared.setPhone(phone: phone)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+        Model.shared.loginType = 0
+        self.navigationController?.popToRootViewController(animated: true)
+        
+        
         }
 
     
     @objc func checkPhoneSt() {
             
-          //  Model.shared.phoneRegister2()
         }
     
     @objc func checkPhoneOut() {
         
-            Model.shared.phoneAuth(code: 3)
         }
     
         @objc private func getSMSCodeBtn(_ sender: Any) {
@@ -234,14 +239,9 @@ class LoginSMSViewController: UIViewController {
                print(replaced)
                 phone = replaced
             }
-            
-//            rndcode = Int.random(in: 0...9999) //генерим случайный код
-//            print("send sms \(rndcode)")
-//
-           // Model.shared.phoneRegister2(phoneNumber: phone)
+
             Model.shared.phoneRegister3(phoneNumber: phone)
             //MARK: Расскоментировать на проде
-            //Model.shared.sendSMS(code: String(rndcode))
             
             messageLabel.isHidden = false
             counterLabel.isHidden = false
@@ -259,38 +259,41 @@ class LoginSMSViewController: UIViewController {
 
         @objc private func codeInputChange(_ sender: UITextField) {
             
-            if codeInput.text?.count == String(rndcode).count {
-               // if codeInput.text == String(rndcode) {
-                     print("код совпадает")
-                     
+            if codeInput.text?.count == 4 {
+                    
                     //MARK: запрос к серверу - поиск по номеру телефона пользователя , если 2 то обратиться в сервис
-                    Model.shared.phoneCheckCode2(phoneNumber: phone, codeNumber: codeInput.text!)
+                print("Телефон: \(phone) код: \(codeInput.text!)")
+             
+                var status = true
+                
+                   Model.shared.phoneCheckCode3(phoneNumber: self.phone, codeNumber: self.codeInput.text!)
+                 /*
+                
+                if status == true {
                     //MARK:переходим на главную страницу
                     
+                //РАССКОМЕНТИРОВАТЬ надо проверить ответ от сервера если полодижетельный то
+                 
                     Model.shared.loginValue = true
                     Model.shared.setSettingsLoginStatus(loginValue:true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
                     Model.shared.loginType = 0
                     self.navigationController?.popToRootViewController(animated: true)
-                    /*
-                    let mainPage = self.storyboard?.instantiateViewController(identifier: "tabViewCont") as! UITabBarController
-                     let appDelegate = UIApplication.shared.delegate
-                     appDelegate?.window??.rootViewController = mainPage
-                    */
-                    //прогрузить данные пользователя с сервера
-                    
-                /*} else {
+            
+                } else {
+                    //обработать ошибки по коду из смс
+                
                     print("Код неправильный")
                     
                     let message = UIAlertController(title: "Внимание!", message: "Введите корректный код ", preferredStyle: .alert)
-                    //let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: nil)
                     let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: { (UIAlertAction) in
                         self.codeInput.text = ""
                     })
                     message.addAction(act3)
                     present(message, animated: true, completion: nil)
-                } */
-            } else if ((codeInput.text!.count) > String(rndcode).count) {
+                    
+                }*/
+            } else if ((codeInput.text!.count) > 4) {
                 print("Код неправильный")
                 
                 let message = UIAlertController(title: "Внимание!", message: "Введите корректный код ", preferredStyle: .alert)
@@ -301,8 +304,6 @@ class LoginSMSViewController: UIViewController {
                     present(message, animated: true, completion: nil)
             }
             
-         //   print(codeinputOutlet.text)
-            
         }
         
         override func viewDidLoad() {
@@ -312,8 +313,8 @@ class LoginSMSViewController: UIViewController {
             view.addSubview(phoneInput)
             view.addSubview(getCodeButton)
             view.addSubview(checkPhoneButtonIn)
-            view.addSubview(checkPhoneButtonSt)
-            view.addSubview(checkPhoneButtonOut)
+            //view.addSubview(checkPhoneButtonSt)
+            //view.addSubview(checkPhoneButtonOut)
             view.addSubview(messageLabel)
             view.addSubview(counterLabel)
             view.addSubview(codeInput)
