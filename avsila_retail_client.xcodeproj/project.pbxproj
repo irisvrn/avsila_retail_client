@@ -42,6 +42,7 @@
 		44B074B923F80B34001F2C16 /* garageStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B074B823F80B34001F2C16 /* garageStackView.swift */; };
 		44C9EAB425FCE97C00ECF2A4 /* DiscountCardVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9EAB325FCE97C00ECF2A4 /* DiscountCardVolume.swift */; };
 		44C9EAB925FD20C200ECF2A4 /* PersonalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9EAB825FD20C200ECF2A4 /* PersonalData.swift */; };
+		44C9EB18261DDBB500ECF2A4 /* AuthResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C9EB17261DDBB500ECF2A4 /* AuthResponseModel.swift */; };
 		44D9987C25E63F5E001C5FD2 /* PersonalPropfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D9987B25E63F5E001C5FD2 /* PersonalPropfileVC.swift */; };
 		44D9987F25E64072001C5FD2 /* FormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D9987E25E64072001C5FD2 /* FormTableViewCell.swift */; };
 		44D9988225E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D9988125E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift */; };
@@ -89,6 +90,7 @@
 		44B074B823F80B34001F2C16 /* garageStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = garageStackView.swift; sourceTree = "<group>"; };
 		44C9EAB325FCE97C00ECF2A4 /* DiscountCardVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountCardVolume.swift; sourceTree = "<group>"; };
 		44C9EAB825FD20C200ECF2A4 /* PersonalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalData.swift; sourceTree = "<group>"; };
+		44C9EB17261DDBB500ECF2A4 /* AuthResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponseModel.swift; sourceTree = "<group>"; };
 		44D9987B25E63F5E001C5FD2 /* PersonalPropfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPropfileVC.swift; sourceTree = "<group>"; };
 		44D9987E25E64072001C5FD2 /* FormTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTableViewCell.swift; sourceTree = "<group>"; };
 		44D9988125E67EA3001C5FD2 /* PersonalProfileButtonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalProfileButtonViewCell.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 			children = (
 				44C9EAB325FCE97C00ECF2A4 /* DiscountCardVolume.swift */,
 				44C9EAB825FD20C200ECF2A4 /* PersonalData.swift */,
+				44C9EB17261DDBB500ECF2A4 /* AuthResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				44C9EAB925FD20C200ECF2A4 /* PersonalData.swift in Sources */,
 				44B074A523F6C4B6001F2C16 /* ViewController.swift in Sources */,
 				44C9EAB425FCE97C00ECF2A4 /* DiscountCardVolume.swift in Sources */,
+				44C9EB18261DDBB500ECF2A4 /* AuthResponseModel.swift in Sources */,
 				4439565824D05DD90005B542 /* STOVC.swift in Sources */,
 				44D9987F25E64072001C5FD2 /* FormTableViewCell.swift in Sources */,
 				44731365258CC6E100871884 /* HomeDiscountCartFourthTableViewCell.swift in Sources */,

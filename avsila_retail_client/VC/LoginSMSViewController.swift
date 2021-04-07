@@ -62,6 +62,14 @@ class LoginSMSViewController: UIViewController {
         return label
     }()
     
+    private let statusApiLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Статус подключения"
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .systemBlue
+        return label
+    }()
 
     
     private let phoneInput: UITextField = {
@@ -240,7 +248,19 @@ class LoginSMSViewController: UIViewController {
                 phone = replaced
             }
 
-            Model.shared.phoneRegister3(phoneNumber: phone)
+            ApiCaller.shared.phoneRegister3(phoneNumber: phone) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let model):
+                        self?.statusApiLabel.text = model.message
+                        print(model.message)
+                        print(model.token)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
             //MARK: Расскоментировать на проде
             
             messageLabel.isHidden = false
@@ -266,7 +286,47 @@ class LoginSMSViewController: UIViewController {
              
                 var status = true
                 
-                   Model.shared.phoneCheckCode3(phoneNumber: self.phone, codeNumber: self.codeInput.text!)
+                ApiCaller.shared.phoneCheckCode3(phoneNumber: self.phone, codeNumber: self.codeInput.text!) { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let model):
+                            self?.statusApiLabel.text = model.message ?? ""
+                        
+                        if (model.token != nil) && (model.token != "") {
+                            Model.shared.setToken(token: model.token!)
+                            if (self?.phone != "") {
+                                Model.shared.setPhone(phone: self?.phone ?? "")
+                            }
+                            
+                            Model.shared.loginValue = true
+                            Model.shared.setSettingsLoginStatus(loginValue:true)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "homepagerefresh"), object: self)
+                            Model.shared.loginType = 0
+                            self?.navigationController?.popToRootViewController(animated: true)
+                            
+                           // Model.shared.status = 1
+                          // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "codesuccess"), object: self)
+                        } else {
+                            // Model.shared.status = 0
+                            //обработать ошибки по коду из смс
+                            
+                            print("Код неправильный")
+                            
+                            let message = UIAlertController(title: "Внимание!", message: "Введите корректный код ", preferredStyle: .alert)
+                            let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: { (UIAlertAction) in
+                                self?.codeInput.text = ""
+                            })
+                            message.addAction(act3)
+                            self?.present(message, animated: true, completion: nil)
+                        }
+
+//                            print(model.message)
+//                            print(model.token)
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
                  /*
                 
                 if status == true {
@@ -281,16 +341,7 @@ class LoginSMSViewController: UIViewController {
                     self.navigationController?.popToRootViewController(animated: true)
             
                 } else {
-                    //обработать ошибки по коду из смс
-                
-                    print("Код неправильный")
                     
-                    let message = UIAlertController(title: "Внимание!", message: "Введите корректный код ", preferredStyle: .alert)
-                    let act3 = UIAlertAction(title: "Понятно", style: .cancel, handler: { (UIAlertAction) in
-                        self.codeInput.text = ""
-                    })
-                    message.addAction(act3)
-                    present(message, animated: true, completion: nil)
                     
                 }*/
             } else if ((codeInput.text!.count) > 4) {
@@ -318,6 +369,7 @@ class LoginSMSViewController: UIViewController {
             view.addSubview(messageLabel)
             view.addSubview(counterLabel)
             view.addSubview(codeInput)
+            view.addSubview(statusApiLabel)
             phoneInput.delegate = self
         }
     
@@ -374,6 +426,8 @@ class LoginSMSViewController: UIViewController {
             y: counterLabel.frame.origin.y+counterLabel.frame.height+10,
             width: 100,
             height: 52.0)
+        statusApiLabel.frame = CGRect(x: 10, y: view.frame.height-150, width: view.frame.width-20, height: 40)
+        
     }
 
         func startTimer() {

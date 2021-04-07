@@ -75,7 +75,7 @@ class HomeFirstVC: UIViewController {
         
         ApiCaller.shared.getDiscountCardVolume { (result) in
             switch result {
-            case .success(let model) : break
+            case .success(let model) :
                 print(result)
 //                let genres = model.genres
 //                var seeds = Set<String>()
@@ -88,7 +88,7 @@ class HomeFirstVC: UIViewController {
 //                APICaller.shared.getRecommendations(genres: seeds) { (_) in
 //
 //                }
-            case .failure(let error) : break
+            case .failure(let error) :
                 print(error)
             }
         }

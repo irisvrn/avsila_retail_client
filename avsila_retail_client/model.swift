@@ -106,11 +106,7 @@ static let shared = Model()
     //MARK: парсим ответ с сервера для decode
 
     
-    struct authResponse: Codable {
-        var token: String?
-        var error: Bool
-        var message: String?
-    }
+
     
     
     struct persDataResponse: Codable {
@@ -396,160 +392,9 @@ static let shared = Model()
         task.resume()
     }
     
-    func phoneRegister3(phoneNumber:String) {
-        //регистрация клиента через POST
-        //регистрация клиента
-        //register=y&register_phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4 : iPhone 12 Pro Max
-        
-        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
-                                                with: "%20",
-                                                options: [.regularExpression])
-        
-        let dataToToket: String = deviceId + devicetypeUnicode
+
     
-        
-        
-/*
-         
-         
-        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
-        // https://sms4b.ru/ws/sms.asmx/SendSMS
-        //POST /ws/sms.asmx/SendSMS HTTP/1.1
-        //Host: sms4b.ru
-        //Content-Type: application/x-www-form-urlencoded
-        //Content-Length: length
-        //
-        //Login=string&Password=string&Source=string&Phone=string&Text=string
-        
-        var request = URLRequest(url: url)
-    
-        request.httpMethod = "POST"
-    //    request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-       // request.addValue("sms4b.ru", forHTTPHeaderField: "Host")
-       // request.addValue("107", forHTTPHeaderField: "Content-Length")
-        
-        let parametrs = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
-        let httpBody = Data(parametrs.utf8)
-    
-          
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-   
-        //старая версия
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                print("RESPONSE \(response)")
-                    //print("data: \(data!)") //данные есть надо разобрать
-                print(String(data: data!, encoding: .utf8)!)
-            } else {
-                print("ERROR !!- \(error?.localizedDescription)")
-            }
-        }.resume()*/
-        
-       /* let paramString = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
-        
-        let urlString :String = "https://dev1.avsila.ru/api/index.php?" + paramString
-        print(urlString)
-        */
-        
-        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let parametrs = "register=y&register_phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
-        let httpBody = Data(parametrs.utf8)
-        request.httpBody = httpBody
-        
-        //guard let url = URL(string: urlString) else {return}
-                  
-                  let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    
-                      if error == nil {
-                        if data != nil {
-                            print("////\\\\")
-                            print(String(data: data!, encoding: .utf8)!)
-                            print("/////\\\\")
-                               do {
-    
-                                let jsonResult = try JSONDecoder().decode(authResponse.self, from:data!)
-                                
-                                print("Токен:  \(jsonResult.token) \n Ошибка: \(jsonResult.error) \n Сообщение : \(jsonResult.message)")
-                             //   self.setToken(token: jsonResult.token!)
-                             //token пришел пустой
-                               } catch {
-                                 //  print("Error ! \(error.localizedDescription)")
-                                print("Error ! \(error)")
-                               }
-                           }
-                      } else {
-                          print("Error when getJSON:\(error?.localizedDescription)")
-                      }
-                  }
-        task.resume()
-        
-        print("отправили запрос на сервер")
-        
-    }
-    
-    func phoneCheckCode3(phoneNumber:String, codeNumber:String) {
-        var status = Int()
-        //отправка кода в ответ на смсчерез POST
-        //register=y&register_phone=79304206601&device_id=8a08dca22a581b0b&device_type=iPhone13,4 : iPhone 12 Pro Max
-        
-        //замещаем пробелы в названии модели телефона
-        let devicetypeUnicode = devicetype.replacingOccurrences(of: "\\s",
-                                                with: "%20",
-                                                options: [.regularExpression])
-        
-        let dataToToket: String = deviceId + devicetypeUnicode
-    
-        guard let url = URL(string: "https://dev1.avsila.ru/api/index.php") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let parametrs = "checkCode=" + codeNumber + "&phone=" + phoneNumber + "&device_id=" + deviceId + "&device_type=" + devicetypeUnicode
-        let httpBody = Data(parametrs.utf8)
-        request.httpBody = httpBody
-        
-        //guard let url = URL(string: urlString) else {return}
-                  
-                  let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    
-                      if error == nil {
-                        if data != nil {
-                            print("!!!!")
-                            print(String(data: data!, encoding: .utf8)!)
-                            print("!!!!")
-                               do {
-    
-                                let jsonResult = try JSONDecoder().decode(authResponse.self, from:data!)
-                                
-                                print("Токен:  \(jsonResult.token) \n Ошибка: \(jsonResult.error) \n Сообщение : \(jsonResult.message)")
-                                if (jsonResult.token != nil) && (jsonResult.token != "") {
-                                    self.setToken(token: jsonResult.token!)
-                                    status = 1
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "codesuccess"), object: self)
-                                } else {
-                                    status = 0
-                                }
-                                
-                                print("status in model 1 \(status)")
-                             //token пришел пустой
-                               } catch {
-                                 //  print("Error ! \(error.localizedDescription)")
-                                print("Error ! \(error)")
-                                status = 0
-                               }
-                           }
-                      } else {
-                          print("Error when getJSON:\(error?.localizedDescription)")
-                        status = 0
-                      }
-                  }
-        task.resume()
-        
-        print("отправили запрос с кодом на сервер")
-        print("status in model 2 \(status)")
-    }
+
     
     
 //    func getPersonalData3() {

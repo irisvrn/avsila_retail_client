@@ -127,7 +127,7 @@ final class PersonalPropfileVC: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(models[section].count + 1)
+        //print("??? \(models[section].count + 1)")
         //return models[section].count + 1
         return userDataArrays.count + 1
     }

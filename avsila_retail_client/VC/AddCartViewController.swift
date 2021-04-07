@@ -45,7 +45,7 @@ class AddCartViewController: UIViewController {
     
     private let buttonPhotoCartNamber : UIButton = {
         let button = UIButton()
-        button.setTitle(" Фото карты", for: .normal)
+        button.setTitle("Фото карты", for: .normal)
         button.setImage(UIImage(systemName: "camera"), for: .normal)
         button.tintColor = .systemBlue
         button.layer.cornerRadius = 5
@@ -108,6 +108,21 @@ class AddCartViewController: UIViewController {
         button.layer.borderColor = UIColor.systemBlue.cgColor
         //button.backgroundColor = .systemBlue
         button.addTarget(self, action: #selector(didTapRequestData), for: .touchUpInside)
+        return button
+       }()
+    
+    private let buttonRequestDataInsert: UIButton = {
+        let button = UIButton()
+        button.setTitle("Привязать карту", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        //button.setImage(UIImage(systemName: "barcode"), for: .normal)
+        button.tintColor = .systemBlue
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        //button.backgroundColor = .systemBlue
+        button.addTarget(self, action: #selector(didTapRequestDataInsert), for: .touchUpInside)
         return button
        }()
     
@@ -185,6 +200,24 @@ class AddCartViewController: UIViewController {
         print("tapped request")
     }
     
+    @objc func didTapRequestDataInsert() {
+        if textFieldCartNumber.text != nil {
+            ApiCaller.shared.insertCardToProfile(cardCode: textFieldCartNumber.text!) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let model): break
+                        
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
+        print("tapped request")
+    }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -201,6 +234,7 @@ class AddCartViewController: UIViewController {
         view.addSubview(buttonGenerateBarCode)
         view.addSubview(buttonRequestData)
         view.addSubview(barCodeImageView)
+        view.addSubview(buttonRequestDataInsert)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "getdiscountcartnumber"), object: nil, queue: nil) { (notification) in
             
@@ -299,10 +333,14 @@ class AddCartViewController: UIViewController {
                                          y: buttonGenerateBarCode.frame.origin.y + buttonGenerateBarCode.frame.height+5,
                                          width: view.layer.frame.width - 20,
                                          height: 30)
+        buttonRequestDataInsert.frame = CGRect(x: 10,
+                                               y: buttonRequestData.frame.origin.y + buttonRequestData.frame.height+5,
+                                               width: view.layer.frame.width - 20,
+                                               height: 30)
         
         let size = view.frame.width / 3 * 2
         barCodeImageView.frame = CGRect(x: view.frame.width/2-(size/2),
-                                        y: buttonGenerateBarCode.frame.origin.y + buttonGenerateBarCode.frame.height + 40,
+                                        y: buttonRequestDataInsert.frame.origin.y + buttonRequestDataInsert.frame.height + 40,
                                         width: size,
                                         height: size/2)
     }
